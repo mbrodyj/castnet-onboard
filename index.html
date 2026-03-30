@@ -153,6 +153,98 @@
             line-height: 1.5;
         }
 
+        /* ===== FISHING CHAOS INTEGRATION BANNER ===== */
+        .fc-integration {
+            margin: 25px 0;
+            border: 2px solid var(--cyan);
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, rgba(0,229,255,0.06) 0%, rgba(0,255,65,0.04) 50%, rgba(0,229,255,0.06) 100%);
+            overflow: hidden;
+            position: relative;
+        }
+        .fc-integration::before {
+            content: 'INTEGRATED';
+            position: absolute;
+            top: 12px;
+            right: -28px;
+            background: var(--cyan);
+            color: var(--bg-deep);
+            font-family: var(--font-display);
+            font-size: 0.55em;
+            font-weight: 900;
+            letter-spacing: 2px;
+            padding: 4px 35px;
+            transform: rotate(35deg);
+            z-index: 2;
+        }
+        .fc-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 20px 0;
+        }
+        .fc-logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .fc-x {
+            font-family: var(--font-display);
+            font-size: 0.7em;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+        }
+        .fc-brand {
+            font-family: var(--font-display);
+            font-size: 1.1em;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+        .fc-brand .fc-fishing { color: var(--cyan); }
+        .fc-brand .fc-chaos { color: var(--neon); }
+        .fc-tagline {
+            color: var(--text-dim);
+            font-size: 0.8em;
+            padding: 6px 20px 0;
+            font-style: italic;
+        }
+        .fc-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            padding: 18px 20px 20px;
+        }
+        .fc-feat {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(0,229,255,0.15);
+        }
+        .fc-feat-icon {
+            font-size: 1.3em;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .fc-feat-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .fc-feat-name {
+            font-family: var(--font-display);
+            font-size: 0.65em;
+            letter-spacing: 1.5px;
+            color: var(--cyan);
+            margin-bottom: 3px;
+        }
+        .fc-feat-desc {
+            color: var(--text-dim);
+            font-size: 0.78em;
+            line-height: 1.4;
+        }
+
         /* ===== SECTION HEADERS ===== */
         .section {
             background: var(--bg-card);
@@ -847,7 +939,49 @@
             <div class="value-card">
                 <div class="value-icon">&#127942;</div>
                 <div class="value-title">TOURNAMENT READY</div>
-                <div class="value-desc">Fish scoring, time markers, sponsor overlays, and live leaderboard tracking</div>
+                <div class="value-desc">Fish scoring, time markers, sponsor overlays, and live leaderboard integration</div>
+            </div>
+        </div>
+
+        <!-- ===== FISHING CHAOS INTEGRATION ===== -->
+        <div class="fc-integration">
+            <div class="fc-header">
+                <div class="fc-logo-area">
+                    <span class="fc-brand"><span class="fc-fishing">CASTNET</span></span>
+                    <span class="fc-x">&times;</span>
+                    <span class="fc-brand"><span class="fc-chaos">FISHING CHAOS</span></span>
+                </div>
+            </div>
+            <div class="fc-tagline">Tournament management meets broadcast-grade production &mdash; the first fully integrated tournament livestream platform in competitive fishing.</div>
+            <div class="fc-features">
+                <div class="fc-feat">
+                    <div class="fc-feat-icon">&#127942;</div>
+                    <div class="fc-feat-text">
+                        <div class="fc-feat-name">LIVE LEADERBOARDS</div>
+                        <div class="fc-feat-desc">Real-time standings from Fishing Chaos scoring piped directly into your stream overlay</div>
+                    </div>
+                </div>
+                <div class="fc-feat">
+                    <div class="fc-feat-icon">&#128202;</div>
+                    <div class="fc-feat-text">
+                        <div class="fc-feat-name">TOURNAMENT SYNC</div>
+                        <div class="fc-feat-desc">Auto-pull event schedules, weigh-in times, and bracket data &mdash; zero manual entry</div>
+                    </div>
+                </div>
+                <div class="fc-feat">
+                    <div class="fc-feat-icon">&#128250;</div>
+                    <div class="fc-feat-text">
+                        <div class="fc-feat-name">MULTI-ANGLER HUB</div>
+                        <div class="fc-feat-desc">Watch every competing angler's stream in one place &mdash; the tournament director's dream</div>
+                    </div>
+                </div>
+                <div class="fc-feat">
+                    <div class="fc-feat-icon">&#128232;</div>
+                    <div class="fc-feat-text">
+                        <div class="fc-feat-name">CATCH VERIFICATION</div>
+                        <div class="fc-feat-desc">Video-backed catch logs with timestamps that sync to the official scoring system</div>
+                    </div>
+                </div>
             </div>
         </div>
 
