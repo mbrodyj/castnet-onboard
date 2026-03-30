@@ -1239,8 +1239,9 @@
                     <div class="sig-area" id="sig-area">
                         <label style="text-transform:none; color:var(--text-dim); font-family:var(--font-body)">Sign below with your finger, nose, elbow, or whatever appendage you prefer &mdash; we don't judge, just sign the thing</label>
                         <canvas class="sig-canvas" id="sig-canvas"></canvas>
-                        <div style="margin-top:8px">
+                        <div style="margin-top:8px; display:flex; gap:10px; flex-wrap:wrap">
                             <button class="btn btn-outline btn-sm" onclick="clearSignature()">CLEAR</button>
+                            <button class="btn btn-outline btn-sm" onclick="typeToSign()" style="border-color:var(--cyan); color:var(--cyan);">CAN'T DRAW? TYPE IT</button>
                         </div>
                     </div>
 
@@ -1356,22 +1357,29 @@
             sigCanvas = document.getElementById('sig-canvas');
             sigCtx = sigCanvas.getContext('2d');
 
+            // Prevent page scroll when drawing on canvas
+            sigCanvas.style.touchAction = 'none';
+
             function resize() {
                 const rect = sigCanvas.getBoundingClientRect();
-                sigCanvas.width = rect.width * (window.devicePixelRatio || 1);
-                sigCanvas.height = rect.height * (window.devicePixelRatio || 1);
-                sigCtx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+                const dpr = window.devicePixelRatio || 1;
+                sigCanvas.width = rect.width * dpr;
+                sigCanvas.height = rect.height * dpr;
+                sigCtx.scale(dpr, dpr);
                 sigCtx.strokeStyle = '#00ff41';
-                sigCtx.lineWidth = 2;
+                sigCtx.lineWidth = 2.5;
                 sigCtx.lineCap = 'round';
                 sigCtx.lineJoin = 'round';
             }
             resize();
+            window.addEventListener('resize', () => { resize(); if (sigHasContent) { sigHasContent = false; } });
 
             function getPos(e) {
                 const rect = sigCanvas.getBoundingClientRect();
-                const touch = e.touches ? e.touches[0] : e;
-                return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+                // Works for pointer, mouse, and touch events
+                const clientX = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+                const clientY = e.clientY !== undefined ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+                return { x: clientX - rect.left, y: clientY - rect.top };
             }
 
             function start(e) {
@@ -1395,13 +1403,60 @@
 
             function stop() { sigDrawing = false; }
 
-            sigCanvas.addEventListener('mousedown', start);
-            sigCanvas.addEventListener('mousemove', draw);
-            sigCanvas.addEventListener('mouseup', stop);
-            sigCanvas.addEventListener('mouseleave', stop);
-            sigCanvas.addEventListener('touchstart', start, { passive: false });
-            sigCanvas.addEventListener('touchmove', draw, { passive: false });
-            sigCanvas.addEventListener('touchend', stop);
+            // Use pointer events (universal: touch, mouse, pen, stylus)
+            // Falls back to touch+mouse for older browsers / in-app browsers
+            if (window.PointerEvent) {
+                sigCanvas.addEventListener('pointerdown', start);
+                sigCanvas.addEventListener('pointermove', draw);
+                sigCanvas.addEventListener('pointerup', stop);
+                sigCanvas.addEventListener('pointerleave', stop);
+                sigCanvas.addEventListener('pointercancel', stop);
+            } else {
+                sigCanvas.addEventListener('mousedown', start);
+                sigCanvas.addEventListener('mousemove', draw);
+                sigCanvas.addEventListener('mouseup', stop);
+                sigCanvas.addEventListener('mouseleave', stop);
+                sigCanvas.addEventListener('touchstart', start, { passive: false });
+                sigCanvas.addEventListener('touchmove', draw, { passive: false });
+                sigCanvas.addEventListener('touchend', stop);
+            }
+        }
+
+        // ===== TYPE-TO-SIGN (fallback for in-app browsers / accessibility) =====
+        function typeToSign() {
+            const name = document.getElementById('f-legal-name').value.trim() || document.getElementById('f-name').value.trim() || '';
+            const typedName = prompt('Type your full legal name to sign electronically:', name);
+            if (!typedName || typedName.trim().length < 2) return;
+
+            // Render typed name as cursive signature on canvas
+            const rect = sigCanvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+
+            // Draw signature text
+            const fontSize = Math.min(rect.width / (typedName.length * 0.6), 42);
+            sigCtx.font = `italic ${fontSize}px "Georgia", "Times New Roman", cursive`;
+            sigCtx.fillStyle = '#00ff41';
+            sigCtx.textAlign = 'center';
+            sigCtx.textBaseline = 'middle';
+            sigCtx.fillText(typedName, rect.width / 2, rect.height / 2);
+
+            // Draw a subtle underline
+            const textWidth = sigCtx.measureText(typedName).width;
+            sigCtx.beginPath();
+            sigCtx.strokeStyle = 'rgba(0,255,65,0.3)';
+            sigCtx.lineWidth = 1;
+            sigCtx.moveTo((rect.width - textWidth) / 2, rect.height / 2 + fontSize * 0.4);
+            sigCtx.lineTo((rect.width + textWidth) / 2, rect.height / 2 + fontSize * 0.4);
+            sigCtx.stroke();
+
+            // Reset stroke style for future hand-drawing
+            sigCtx.strokeStyle = '#00ff41';
+            sigCtx.lineWidth = 2.5;
+
+            sigHasContent = true;
+            document.getElementById('sig-area').classList.add('signed');
+            checkCanSubmit();
         }
 
         function clearSignature() {
