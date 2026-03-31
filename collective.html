@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CASTNET // JOIN THE COLLECTIVE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --neon: #00ff41;
+            --neon-dim: #00cc33;
+            --neon-glow: rgba(0, 255, 65, 0.3);
+            --neon-glow-strong: rgba(0, 255, 65, 0.6);
+            --cyan: #00e5ff;
+            --cyan-glow: rgba(0, 229, 255, 0.3);
+            --red: #ff4444;
+            --red-glow: rgba(255, 68, 68, 0.4);
+            --orange: #ffaa00;
+            --orange-glow: rgba(255, 170, 0, 0.3);
+            --purple: #bf94ff;
+            --purple-glow: rgba(191, 148, 255, 0.3);
+            --gold: #ffd700;
+            --gold-glow: rgba(255, 215, 0, 0.3);
+            --bg-deep: #0e0e10;
+            --bg-card: rgba(24, 24, 27, 0.9);
+            --bg-card-hover: rgba(31, 31, 35, 0.95);
+            --border: #2a2a2e;
+            --border-bright: #3a3a3e;
+            --text: #efeff1;
+            --text-dim: #adadb8;
+            --text-bright: #ffffff;
+            --font-mono: 'Share Tech Mono', monospace;
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --radius: 12px;
+            --touch-min: 44px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 15px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Scanlines */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.012) 2px, rgba(0,255,65,0.012) 4px);
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        /* ===== NDA GATE OVERLAY ===== */
+        .nda-gate {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-deep);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .nda-gate.dismissed { display: none; }
+        .nda-inner {
+            max-width: 680px;
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--red);
+            border-radius: var(--radius);
+            padding: 0;
+            box-shadow: 0 0 40px rgba(255,68,68,0.15), 0 0 80px rgba(255,68,68,0.05);
+        }
+        .nda-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255,68,68,0.04);
+            text-align: center;
+        }
+        .nda-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.1em;
+            letter-spacing: 4px;
+            color: var(--red);
+            margin-bottom: 6px;
+        }
+        .nda-header p {
+            font-family: var(--font-mono);
+            font-size: 0.75em;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+        .nda-body {
+            padding: 24px 28px;
+            max-height: 55vh;
+            overflow-y: auto;
+            font-size: 0.88em;
+            line-height: 1.7;
+            color: var(--text-dim);
+        }
+        .nda-body h3 {
+            color: var(--text-bright);
+            font-size: 0.95em;
+            margin: 18px 0 8px;
+            font-family: var(--font-body);
+        }
+        .nda-body h3:first-child { margin-top: 0; }
+        .nda-body ol { padding-left: 20px; margin: 8px 0; }
+        .nda-body li { margin-bottom: 6px; }
+        .nda-body strong { color: var(--text); }
+        .nda-footer {
+            padding: 20px 28px;
+            border-top: 1px solid var(--border);
+            background: rgba(255,68,68,0.03);
+        }
+        .nda-footer .checkbox-row { margin-bottom: 14px; }
+        .nda-decline-note {
+            text-align: center;
+            font-size: 0.72em;
+            color: rgba(173,173,184,0.4);
+            margin-top: 10px;
+        }
+
+        /* ===== GLOBAL CONTAINER ===== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(ellipse at center, rgba(0,255,65,0.04) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero-logo {
+            font-family: var(--font-display);
+            font-size: clamp(2.5em, 8vw, 4.5em);
+            font-weight: 900;
+            letter-spacing: 12px;
+            color: var(--neon);
+            text-shadow: 0 0 20px var(--neon-glow), 0 0 40px var(--neon-glow), 0 0 80px rgba(0,255,65,0.15);
+            animation: flicker 4s infinite;
+            position: relative;
+        }
+        .hero-powered {
+            font-family: var(--font-mono);
+            font-size: 0.75em;
+            letter-spacing: 6px;
+            color: var(--cyan);
+            margin-top: 6px;
+            text-transform: uppercase;
+        }
+        .hero-tagline {
+            font-size: clamp(1em, 2.5vw, 1.35em);
+            color: var(--text-bright);
+            margin-top: 30px;
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-secondary {
+            font-size: 0.95em;
+            color: var(--text-dim);
+            margin-top: 15px;
+            line-height: 1.7;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-badge {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 24px;
+            border: 1px solid var(--orange);
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-size: 0.65em;
+            letter-spacing: 3px;
+            color: var(--orange);
+            background: rgba(255,170,0,0.06);
+            box-shadow: 0 0 15px rgba(255,170,0,0.1);
+        }
+        .hero-cta {
+            margin-top: 35px;
+        }
+
+        @keyframes flicker {
+            0%, 95%, 100% { opacity: 1; }
+            96% { opacity: 0.85; }
+            98% { opacity: 0.7; }
+        }
+
+        /* ===== SECTION DIVIDERS ===== */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+            margin: 60px 0;
+            position: relative;
+        }
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 20%; right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-glow), transparent);
+        }
+
+        /* ===== SECTION TITLES ===== */
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1em, 3vw, 1.4em);
+            letter-spacing: 4px;
+            color: var(--neon);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== PROBLEM / SOLUTION ===== */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        @media (max-width: 700px) {
+            .compare-grid { grid-template-columns: 1fr; }
+        }
+        .compare-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px 25px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .compare-card:hover {
+            border-color: var(--border-bright);
+            transform: translateY(-2px);
+        }
+        .compare-card.old {
+            border-color: rgba(255,68,68,0.3);
+        }
+        .compare-card.old .compare-label { color: var(--red); }
+        .compare-card.new {
+            border-color: rgba(0,255,65,0.3);
+            box-shadow: 0 0 20px rgba(0,255,65,0.05);
+        }
+        .compare-card.new .compare-label { color: var(--neon); }
+        .compare-label {
+            font-family: var(--font-display);
+            font-size: 0.75em;
+            letter-spacing: 3px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .compare-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .compare-card ul li {
+            padding: 8px 0;
+            font-size: 0.9em;
+            color: var(--text-dim);
+            line-height: 1.5;
+            border-bottom: 1px solid rgba(42,42,46,0.5);
+        }
+        .compare-card ul li:last-child { border-bottom: none; }
+        .compare-card.old ul li::before {
+            content: '\2717 ';
+            color: var(--red);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .compare-card.new ul li::before {
+            content: '\2713 ';
+            color: var(--neon);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        /* ===== STREAMNET BACKBONE ===== */
+        .streamnet-section {
+            background: linear-gradient(180deg, rgba(0,229,255,0.03) 0%, transparent 100%);
+            border: 1px solid rgba(0,229,255,0.15);
+            border-radius: var(--radius);
+            padding: 50px 30px;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .streamnet-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+        }
+        .streamnet-logo {
+            font-family: var(--font-display);
+            font-size: 1.6em;
+            font-weight: 700;
+            letter-spacing: 6px;
+            color: var(--cyan);
+            text-align: center;
+            text-shadow: 0 0 20px var(--cyan-glow);
+            margin-bottom: 8px;
+        }
+        .streamnet-sub {
+            font-family: var(--font-mono);
+            font-size: 0.75em;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        .streamnet-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .sn-feature {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .sn-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(0,229,255,0.08);
+            border: 1px solid rgba(0,229,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: var(--cyan);
+        }
+        .sn-feature-title {
+            font-family: var(--font-mono);
+            font-size: 0.8em;
+            color: var(--cyan);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .sn-feature-desc {
+            font-size: 0.85em;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        /* Network Effect Math Box */
+        .network-math {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,229,255,0.2);
+            border-radius: 8px;
+            padding: 24px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .network-math-label {
+            font-family: var(--font-mono);
+            font-size: 0.7em;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+        .network-math-equation {
+            font-family: var(--font-display);
+            font-size: clamp(0.85em, 2.5vw, 1.2em);
+            color: var(--text-bright);
+            letter-spacing: 2px;
+        }
+        .network-math-equation .highlight { color: var(--cyan); }
+        .network-math-equation .result { color: var(--neon); font-weight: 700; }
+
+        /* ===== FISHING CHAOS SECTION ===== */
+        .chaos-section {
+            background: linear-gradient(180deg, rgba(255,170,0,0.03) 0%, transparent 100%);
+            border: 1px solid rgba(255,170,0,0.15);
+            border-radius: var(--radius);
+            padding: 50px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .chaos-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--orange), transparent);
+        }
+        .chaos-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        .chaos-logo {
+            font-family: var(--font-display);
+            font-size: 0.85em;
+            letter-spacing: 4px;
+            color: var(--orange);
+            margin-bottom: 4px;
+        }
+        .chaos-logo .x-mark {
+            color: var(--text-dim);
+            margin: 0 12px;
+            font-weight: 400;
+        }
+        .chaos-tagline {
+            font-size: 0.85em;
+            color: var(--text-dim);
+        }
+        .chaos-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+        .chaos-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,170,0,0.15);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        .chaos-card:hover {
+            border-color: rgba(255,170,0,0.35);
+            box-shadow: 0 0 15px rgba(255,170,0,0.08);
+            transform: translateY(-2px);
+        }
+        .chaos-card-icon {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .chaos-card-title {
+            font-family: var(--font-mono);
+            font-size: 0.78em;
+            letter-spacing: 1px;
+            color: var(--orange);
+            margin-bottom: 6px;
+        }
+        .chaos-card-desc {
+            font-size: 0.82em;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        /* ===== TOOLS GRID ===== */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 18px;
+            margin-top: 30px;
+        }
+        @media (max-width: 700px) {
+            .tools-grid { grid-template-columns: 1fr; }
+        }
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px 22px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--purple);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tool-card:hover {
+            border-color: var(--purple);
+            box-shadow: 0 0 20px var(--purple-glow);
+            transform: translateY(-3px);
+        }
+        .tool-card:hover::before { opacity: 1; }
+        .tool-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        .tool-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(191,148,255,0.08);
+            border: 1px solid rgba(191,148,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+            flex-shrink: 0;
+        }
+        .tool-name {
+            font-family: var(--font-display);
+            font-size: 0.72em;
+            letter-spacing: 2px;
+            color: var(--purple);
+        }
+        .tool-desc {
+            font-size: 0.88em;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .steps-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+            position: relative;
+        }
+        @media (max-width: 700px) {
+            .steps-row { grid-template-columns: 1fr; }
+        }
+        .step-card {
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--neon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-family: var(--font-display);
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--neon);
+            box-shadow: 0 0 15px var(--neon-glow);
+            background: rgba(0,255,65,0.05);
+        }
+        .step-card-title {
+            font-family: var(--font-display);
+            font-size: 0.8em;
+            letter-spacing: 3px;
+            color: var(--text-bright);
+            margin-bottom: 10px;
+        }
+        .step-card-desc {
+            font-size: 0.88em;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+        /* Connector lines between steps */
+        .step-connector {
+            display: none;
+        }
+        @media (min-width: 701px) {
+            .step-connector {
+                display: block;
+                position: absolute;
+                top: 48px;
+                width: calc(100% - 80px);
+                height: 2px;
+                background: linear-gradient(90deg, var(--neon-glow), var(--neon), var(--neon-glow));
+                left: calc(50% + 40px);
+                z-index: 0;
+            }
+            .step-card:last-child .step-connector { display: none; }
+        }
+
+        /* ===== SERVICE TIERS ===== */
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+            margin-top: 30px;
+        }
+        .tier-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 22px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .tier-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+        .tier-card.selected {
+            border-color: var(--neon);
+            box-shadow: 0 0 25px var(--neon-glow);
+        }
+        .tier-card.selected::after {
+            content: 'SELECTED';
+            position: absolute;
+            top: -10px; right: 15px;
+            background: var(--neon);
+            color: var(--bg-deep);
+            font-family: var(--font-display);
+            font-size: 0.55em;
+            letter-spacing: 2px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+        .tier-card.popular {
+            border-color: var(--gold);
+        }
+        .tier-card.popular::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -10px; left: 15px;
+            background: var(--gold);
+            color: var(--bg-deep);
+            font-family: var(--font-display);
+            font-size: 0.55em;
+            letter-spacing: 2px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+        .tier-card.elite {
+            border-color: var(--gold);
+        }
+        .tier-card.elite::before {
+            content: 'WHITE GLOVE';
+            position: absolute;
+            top: -1px; right: 20px;
+            background: var(--gold);
+            color: var(--bg-deep);
+            font-family: var(--font-display);
+            font-size: 0.55em;
+            letter-spacing: 2px;
+            padding: 3px 12px;
+            border-radius: 0 0 6px 6px;
+            font-weight: 700;
+        }
+        .tier-card.elite.selected {
+            border-color: var(--gold);
+            box-shadow: 0 0 25px var(--gold-glow), inset 0 0 30px rgba(255,215,0,0.05);
+        }
+        .tier-card.elite .tier-name { color: var(--gold); }
+        .tier-card.elite .tier-price { color: var(--gold); }
+        .tier-name {
+            font-family: var(--font-display);
+            font-size: 0.85em;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 6px;
+        }
+        .tier-price {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 5px;
+        }
+        .tier-price span { font-size: 0.4em; color: var(--text-dim); font-weight: 400; }
+        .tier-features {
+            list-style: none;
+            margin-top: 15px;
+            padding: 0;
+        }
+        .tier-features li {
+            padding: 5px 0;
+            font-size: 0.84em;
+            color: var(--text-dim);
+        }
+        .tier-features li::before {
+            content: '\2713 ';
+            color: var(--neon);
+            font-weight: 700;
+            margin-right: 6px;
+        }
+        .deposit-note {
+            display: inline-block;
+            background: rgba(255,68,68,0.1);
+            border: 1px solid rgba(255,68,68,0.3);
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-family: var(--font-mono);
+            font-size: 0.8em;
+            color: var(--red);
+            margin-top: 12px;
+        }
+
+        /* ===== NETWORK EFFECT / SOCIAL PROOF ===== */
+        .proof-section {
+            background: linear-gradient(180deg, rgba(0,255,65,0.03) 0%, transparent 100%);
+            border: 1px solid rgba(0,255,65,0.15);
+            border-radius: var(--radius);
+            padding: 50px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .proof-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon), transparent);
+        }
+        .proof-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 35px 0;
+        }
+        .proof-stat {
+            padding: 20px;
+        }
+        .proof-stat-number {
+            font-family: var(--font-display);
+            font-size: 2.5em;
+            font-weight: 900;
+            color: var(--neon);
+            text-shadow: 0 0 15px var(--neon-glow);
+            line-height: 1;
+        }
+        .proof-stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.72em;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            margin-top: 8px;
+        }
+        .proof-quote {
+            font-size: 1.15em;
+            font-style: italic;
+            color: var(--text);
+            margin-top: 25px;
+            line-height: 1.6;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .proof-testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 30px;
+        }
+        .testimonial-slot {
+            background: rgba(0,0,0,0.3);
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            padding: 24px 18px;
+            font-size: 0.85em;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+        .testimonial-slot .name {
+            font-style: normal;
+            font-family: var(--font-mono);
+            font-size: 0.8em;
+            color: var(--neon);
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== ONBOARDING FORM ===== */
+        .form-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-top: 30px;
+        }
+        .form-section-header {
+            font-family: var(--font-display);
+            font-size: 0.8em;
+            letter-spacing: 3px;
+            color: var(--neon);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(0,255,65,0.03);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-section-header .step-num {
+            background: var(--neon);
+            color: var(--bg-deep);
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+        .form-body {
+            padding: 24px;
+        }
+
+        /* ===== STEPPER ===== */
+        .stepper {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin: 30px 0 20px;
+            position: relative;
+        }
+        .stepper-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            flex: 1;
+            max-width: 120px;
+        }
+        .stepper-step::before {
+            content: '';
+            position: absolute;
+            top: 15px; left: 50%; right: -50%;
+            height: 2px;
+            background: var(--border);
+            z-index: 0;
+        }
+        .stepper-step:last-child::before { display: none; }
+        .stepper-dot {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--bg-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 0.7em;
+            color: var(--text-dim);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+        .stepper-step.active .stepper-dot {
+            border-color: var(--neon);
+            color: var(--neon);
+            box-shadow: 0 0 10px var(--neon-glow);
+        }
+        .stepper-step.done .stepper-dot {
+            background: var(--neon);
+            border-color: var(--neon);
+            color: var(--bg-deep);
+        }
+        .stepper-label {
+            font-family: var(--font-mono);
+            font-size: 0.6em;
+            color: var(--text-dim);
+            margin-top: 6px;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        .stepper-step.active .stepper-label { color: var(--neon); }
+
+        /* ===== FORM ELEMENTS ===== */
+        .form-group { margin-bottom: 18px; }
+        label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.78em;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+        label .required { color: var(--red); }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--neon-dim);
+            box-shadow: 0 0 10px var(--neon-glow);
+        }
+        textarea { resize: vertical; min-height: 80px; }
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300ff41' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 35px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        @media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; }
+        }
+
+        /* ===== CHECKBOXES ===== */
+        .checkbox-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 12px 0;
+            cursor: pointer;
+        }
+        .checkbox-row input[type="checkbox"] {
+            width: 20px; height: 20px;
+            accent-color: var(--neon);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ===== AGREEMENT BOX ===== */
+        .agreement-box {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            font-size: 0.85em;
+            line-height: 1.7;
+            color: var(--text-dim);
+        }
+        .agreement-box h3 {
+            color: var(--text-bright);
+            font-size: 1em;
+            margin: 15px 0 8px;
+        }
+        .agreement-box h3:first-child { margin-top: 0; }
+        .agreement-box ol, .agreement-box ul {
+            padding-left: 20px;
+            margin: 8px 0;
+        }
+
+        /* ===== SIGNATURE ===== */
+        .sig-area {
+            background: rgba(0,0,0,0.3);
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .sig-area.signed {
+            border-color: var(--neon);
+            border-style: solid;
+        }
+        .sig-canvas {
+            width: 100%;
+            max-width: 500px;
+            height: 120px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: crosshair;
+            touch-action: none;
+        }
+        .sig-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .sig-tab {
+            padding: 8px 20px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            font-size: 0.75em;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .sig-tab.active {
+            border-color: var(--neon);
+            color: var(--neon);
+            background: rgba(0,255,65,0.06);
+        }
+        .sig-tab:hover { border-color: var(--neon-dim); }
+        .sig-type-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--neon);
+            font-family: 'Brush Script MT', 'Segoe Script', cursive;
+            font-size: 1.8em;
+            text-align: center;
+            transition: border-color 0.3s;
+            display: none;
+        }
+        .sig-type-input:focus {
+            outline: none;
+            border-color: var(--neon);
+        }
+        .sig-type-input.active { display: block; margin: 0 auto; }
+
+        /* ===== BRODY STORY BOX ===== */
+        .story-box {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--orange);
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .story-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 18px;
+            cursor: pointer;
+            user-select: none;
+            font-family: var(--font-mono);
+            font-size: 0.8em;
+            letter-spacing: 1px;
+            color: var(--orange);
+            background: rgba(255,170,0,0.06);
+            transition: background 0.2s;
+        }
+        .story-header:hover { background: rgba(255,170,0,0.1); }
+        .story-icon { font-size: 1.4em; }
+        .story-toggle { margin-left: auto; font-size: 0.8em; transition: transform 0.3s; }
+        .story-toggle.collapsed { transform: rotate(-90deg); }
+        .story-content {
+            padding: 20px;
+            font-size: 0.9em;
+            line-height: 1.8;
+            color: var(--text-dim);
+        }
+        .story-content p { margin-bottom: 12px; }
+        .story-content p:last-child { margin-bottom: 0; }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border: 1px solid;
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-size: 0.78em;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: var(--touch-min);
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: var(--neon);
+            color: var(--bg-deep);
+            border-color: var(--neon);
+            font-weight: 700;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 25px var(--neon-glow-strong);
+            transform: translateY(-1px);
+        }
+        .btn-primary:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--cyan);
+            border-color: var(--cyan);
+        }
+        .btn-outline:hover { box-shadow: 0 0 15px var(--cyan-glow); }
+        .btn-block { width: 100%; }
+        .btn-sm { padding: 8px 16px; font-size: 0.7em; }
+        .btn-lg { padding: 18px 40px; font-size: 0.85em; }
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* ===== SUCCESS PANEL ===== */
+        .success-panel {
+            display: none;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .success-panel.show { display: block; }
+        .success-check { font-size: 4em; margin-bottom: 20px; }
+        .success-panel h2 {
+            font-family: var(--font-display);
+            color: var(--neon);
+            letter-spacing: 5px;
+            font-size: 1.6em;
+        }
+        .success-panel p {
+            color: var(--text-dim);
+            margin-top: 12px;
+            line-height: 1.7;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            border-top: 1px solid var(--border);
+            margin-top: 80px;
+        }
+        .footer-tagline {
+            font-family: var(--font-display);
+            font-size: clamp(0.7em, 2vw, 0.9em);
+            letter-spacing: 4px;
+            color: var(--neon);
+            text-shadow: 0 0 10px var(--neon-glow);
+            margin-bottom: 20px;
+        }
+        .footer-contact {
+            font-size: 0.9em;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+        }
+        .footer-brand {
+            font-family: var(--font-mono);
+            font-size: 0.7em;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            margin-top: 15px;
+            opacity: 0.6;
+        }
+        .footer-powered {
+            font-family: var(--font-mono);
+            font-size: 0.65em;
+            letter-spacing: 3px;
+            color: var(--cyan);
+            margin-top: 6px;
+            opacity: 0.5;
+        }
+
+        /* ===== HIDE/SHOW ===== */
+        .page { display: none; }
+        .page.active { display: block; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ===== CONSENT FOOTER ===== */
+        .consent-footer {
+            text-align: center;
+            font-size: 0.7em;
+            color: rgba(173,173,184,0.5);
+            margin-top: 12px;
+            line-height: 1.4;
+        }
+        .consent-footer a {
+            color: rgba(173,173,184,0.6);
+            text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .hero { padding: 50px 15px 40px; }
+            .streamnet-section, .chaos-section, .proof-section { padding: 30px 18px; }
+            .tier-grid { grid-template-columns: 1fr; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .chaos-features { grid-template-columns: 1fr; }
+            .proof-stats { grid-template-columns: 1fr 1fr; }
+            .container { padding: 0 12px 60px; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===== NDA / CONFIDENTIALITY GATE ===== -->
+    <div class="nda-gate" id="nda-gate">
+        <div class="nda-inner">
+            <div class="nda-header">
+                <h2>CONFIDENTIALITY AGREEMENT</h2>
+                <p>REQUIRED BEFORE PROCEEDING</p>
+            </div>
+            <div class="nda-body">
+                <h3>Non-Disclosure &amp; Intellectual Property Acknowledgment</h3>
+                <p>This onboarding portal contains proprietary information about <strong>CastNET Productions'</strong> managed livestream production platform, including descriptions of service capabilities, technology infrastructure, automation systems, and operational methods (collectively, "Confidential Information").</p>
+
+                <p><strong>By proceeding past this page, you acknowledge and agree to the following:</strong></p>
+
+                <ol>
+                    <li><strong>Confidentiality.</strong> All information presented in this onboarding portal &mdash; including service descriptions, feature lists, technology capabilities, pricing structures, system architecture references, and operational methods &mdash; constitutes Confidential Information belonging to CastNET Productions.</li>
+                    <li><strong>Non-Disclosure.</strong> You agree not to disclose, share, screenshot, record, forward, or otherwise distribute any Confidential Information obtained through this portal to any third party without prior written consent from CastNET Productions.</li>
+                    <li><strong>Non-Compete / Non-Replication.</strong> You agree not to use any Confidential Information to build, replicate, reverse-engineer, or assist any third party in building a competing service, product, or system that incorporates or is derived from CastNET's methods, workflows, or technology stack.</li>
+                    <li><strong>No Solicitation.</strong> You agree not to use information obtained through this portal to solicit, recruit, or direct CastNET's clients, contractors, or service partners toward competing services.</li>
+                    <li><strong>Intellectual Property.</strong> All content within this portal &mdash; including text, graphics, branding, interface design, and technical descriptions &mdash; is the intellectual property of CastNET Productions and is protected under applicable copyright and trade secret laws.</li>
+                    <li><strong>Binding Effect.</strong> This acknowledgment is binding regardless of whether you proceed to complete the onboarding form or purchase any services. Viewing this portal's contents constitutes receipt of Confidential Information.</li>
+                    <li><strong>Remedies.</strong> You acknowledge that any breach of this agreement may cause irreparable harm to CastNET Productions, entitling Provider to seek injunctive relief in addition to any other available remedies, including recovery of attorney's fees and damages.</li>
+                    <li><strong>Duration.</strong> These confidentiality obligations survive for a period of three (3) years from the date of acceptance, regardless of whether a service relationship is established.</li>
+                </ol>
+
+                <h3>Who You Are Agreeing With</h3>
+                <p><strong>CastNET Productions</strong> is operated by Brody McWilliams. This is a sole proprietorship providing managed livestream production services. All references to "Provider," "CastNET," or "CastNET Productions" refer to this entity.</p>
+            </div>
+            <div class="nda-footer">
+                <div class="checkbox-row" onclick="this.querySelector('input').click()">
+                    <input type="checkbox" id="nda-agree" onclick="event.stopPropagation(); checkNdaGate()">
+                    <span style="font-size:0.88em; color:var(--text-dim)">I have read, understand, and agree to this Confidentiality Agreement. I acknowledge that viewing the contents of this portal constitutes receipt of Confidential Information and that these obligations are legally binding.</span>
+                </div>
+
+                <div class="form-row" style="margin-top:12px">
+                    <div class="form-group" style="flex:2">
+                        <label>Full Name <span class="required">*</span></label>
+                        <input type="text" id="nda-name" placeholder="Your full legal name" oninput="checkNdaGate()">
+                    </div>
+                    <div class="form-group" style="flex:1">
+                        <label>Date</label>
+                        <input type="text" id="nda-date" readonly>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-block" id="nda-proceed" disabled onclick="dismissNda()" style="background:var(--red); border-color:var(--red); box-shadow:0 0 15px rgba(255,68,68,0.3);">
+                    I AGREE &mdash; PROCEED
+                </button>
+                <p class="nda-decline-note">If you do not agree, simply close this page. No information will be shared.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="container">
+
+        <!-- ===== 1. HERO ===== -->
+        <div class="hero">
+            <div class="hero-logo">CASTNET</div>
+            <div class="hero-powered">POWERED BY STREAMNET</div>
+            <p class="hero-tagline">
+                The first angler-owned streaming collective in competitive fishing.
+            </p>
+            <p class="hero-secondary">
+                Join a network of tournament anglers who stream together, grow together, and dominate every platform together.
+            </p>
+            <div class="hero-badge">IN PARTNERSHIP WITH FISHING CHAOS</div>
+            <div class="hero-cta">
+                <a href="#onboarding" class="btn btn-primary btn-lg" onclick="scrollToForm(event)">JOIN THE COLLECTIVE</a>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ===== 2. PROBLEM / SOLUTION ===== -->
+        <div>
+            <div class="section-title">WHY A COLLECTIVE?</div>
+            <div class="section-subtitle">
+                Solo streaming is broken. The collective model changes everything.
+            </div>
+            <div class="compare-grid">
+                <div class="compare-card old">
+                    <div class="compare-label">&#x2718; THE OLD WAY</div>
+                    <ul>
+                        <li>You stream alone. Your audience is tiny.</li>
+                        <li>You manage your own tech &mdash; cameras, encoding, software, all of it.</li>
+                        <li>When your stream crashes, nobody fixes it.</li>
+                        <li>You're invisible on most platforms.</li>
+                        <li>No cross-promotion. No shared growth.</li>
+                        <li>You're competing against anglers with entire production teams.</li>
+                    </ul>
+                </div>
+                <div class="compare-card new">
+                    <div class="compare-label">&#x2714; THE CASTNET WAY</div>
+                    <ul>
+                        <li>You join a collective. Strength in numbers.</li>
+                        <li>StreamNET restreams you to every platform simultaneously.</li>
+                        <li>When one angler goes live, the whole network promotes it.</li>
+                        <li>AI handles your content &mdash; posts, clips, thumbnails.</li>
+                        <li>Self-healing infrastructure recovers before you notice.</li>
+                        <li>You just fish. We handle everything else.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ===== 3. STREAMNET BACKBONE ===== -->
+        <div class="streamnet-section">
+            <div class="streamnet-logo">STREAMNET</div>
+            <div class="streamnet-sub">THE BACKBONE OF THE COLLECTIVE</div>
+
+            <div class="streamnet-features">
+                <div class="sn-feature">
+                    <div class="sn-icon">&#9654;</div>
+                    <div>
+                        <div class="sn-feature-title">SIMULTANEOUS RESTREAMING</div>
+                        <div class="sn-feature-desc">One stream, every platform. YouTube, Facebook, Twitch, Kick, X, and partner networks &mdash; all at once.</div>
+                    </div>
+                </div>
+                <div class="sn-feature">
+                    <div class="sn-icon">&#128279;</div>
+                    <div>
+                        <div class="sn-feature-title">COLLECTIVE CROSS-PROMOTION</div>
+                        <div class="sn-feature-desc">Every angler in the network benefits from every other angler's audience. Rising tides lift all boats.</div>
+                    </div>
+                </div>
+                <div class="sn-feature">
+                    <div class="sn-icon">&#127959;</div>
+                    <div>
+                        <div class="sn-feature-title">ENTERPRISE INFRASTRUCTURE</div>
+                        <div class="sn-feature-desc">Broadcast-grade systems that individual anglers could never build or afford on their own.</div>
+                    </div>
+                </div>
+                <div class="sn-feature">
+                    <div class="sn-icon">&#8635;</div>
+                    <div>
+                        <div class="sn-feature-title">RAID TRAIN</div>
+                        <div class="sn-feature-desc">When your stream ends, viewers get sent to another CastNET angler. The audience stays in the network.</div>
+                    </div>
+                </div>
+                <div class="sn-feature">
+                    <div class="sn-icon">&#127942;</div>
+                    <div>
+                        <div class="sn-feature-title">TOURNAMENT HUB</div>
+                        <div class="sn-feature-desc">On tournament day, viewers can watch every competing angler from one hub. Multi-stream, one destination.</div>
+                    </div>
+                </div>
+                <div class="sn-feature">
+                    <div class="sn-icon">&#128737;</div>
+                    <div>
+                        <div class="sn-feature-title">SELF-HEALING STREAMS</div>
+                        <div class="sn-feature-desc">24/7 watchdog auto-recovers from crashes, black screens, and drops. Your stream stays up even if you don't notice.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="network-math">
+                <div class="network-math-label">THE NETWORK EFFECT</div>
+                <div class="network-math-equation">
+                    <span class="highlight">10 anglers</span> &times; <span class="highlight">500 viewers</span> = <span class="result">5,000 collective viewers</span> <span style="color:var(--text-dim); font-size:0.7em;">across all platforms</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ===== 4. FISHING CHAOS INTEGRATION ===== -->
+        <div class="chaos-section">
+            <div class="chaos-header">
+                <div class="chaos-logo">CASTNET <span class="x-mark">&times;</span> FISHING CHAOS</div>
+                <div class="chaos-tagline">Live tournament data, piped directly into your stream.</div>
+            </div>
+            <div class="chaos-features">
+                <div class="chaos-card">
+                    <div class="chaos-card-icon">&#128200;</div>
+                    <div class="chaos-card-title">LIVE LEADERBOARDS</div>
+                    <div class="chaos-card-desc">Real-time Fishing Chaos scoring piped into your stream overlays. Viewers see standings as they happen.</div>
+                </div>
+                <div class="chaos-card">
+                    <div class="chaos-card-icon">&#128197;</div>
+                    <div class="chaos-card-title">TOURNAMENT SYNC</div>
+                    <div class="chaos-card-desc">Auto-pull schedules, weigh-in times, and bracket data. Your stream always knows what's happening next.</div>
+                </div>
+                <div class="chaos-card">
+                    <div class="chaos-card-icon">&#128250;</div>
+                    <div class="chaos-card-title">MULTI-ANGLER HUB</div>
+                    <div class="chaos-card-desc">Watch every competing angler in one place. Viewers pick their camera. One event, every perspective.</div>
+                </div>
+                <div class="chaos-card">
+                    <div class="chaos-card-icon">&#9989;</div>
+                    <div class="chaos-card-title">CATCH VERIFICATION</div>
+                    <div class="chaos-card-desc">Video-backed catch logs synced to scoring systems. Every fish is documented on camera, verified in real time.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ===== 5. YOUR TOOLS ===== -->
+        <div>
+            <div class="section-title">YOUR TOOLS</div>
+            <div class="section-subtitle">
+                Everything you need to stream, grow, and manage your brand &mdash; built for anglers, not tech people.
+            </div>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-card-header">
+                        <div class="tool-icon">&#128225;</div>
+                        <div class="tool-name">BRO CONTROL</div>
+                    </div>
+                    <div class="tool-desc">Phone command center. Switch cameras, log fish, fire sponsor ads, monitor your stream health &mdash; all from the water.</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-card-header">
+                        <div class="tool-icon">&#127942;</div>
+                        <div class="tool-name">TOURNAMENT OVERLAYS</div>
+                    </div>
+                    <div class="tool-desc">Custom branded overlays with sponsors, live scoring, leaderboard, weather, and ticker. ESPN-quality production for fishing.</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-card-header">
+                        <div class="tool-icon">&#128202;</div>
+                        <div class="tool-name">CONTENT DASHBOARD</div>
+                    </div>
+                    <div class="tool-desc">Social media composer, scheduler, sponsor tracker, and content calendar. All platforms, one dashboard. Post everywhere at once.</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-card-header">
+                        <div class="tool-icon">&#128205;</div>
+                        <div class="tool-name">NAVCAST WAYPOINT VAULT</div>
+                    </div>
+                    <div class="tool-desc">Cloud waypoint storage. Import and export across Garmin, Lowrance, and Humminbird. Never lose a spot again.</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-card-header">
+                        <div class="tool-icon">&#129302;</div>
+                        <div class="tool-name">AI CONTENT ENGINE</div>
+                    </div>
+                    <div class="tool-desc">Auto-generated social posts, thumbnails, and highlight reels from your stream footage. Content that writes itself.</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-card-header">
+                        <div class="tool-icon">&#9654;</div>
+                        <div class="tool-name">STREAMNET RESTREAM</div>
+                    </div>
+                    <div class="tool-desc">One stream, every platform. YouTube, Facebook, Twitch, Kick, X, and partner networks. Powered by the collective.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ===== 6. HOW IT WORKS ===== -->
+        <div>
+            <div class="section-title">HOW IT WORKS</div>
+            <div class="section-subtitle">Three steps. That's it.</div>
+            <div class="steps-row">
+                <div class="step-card">
+                    <div class="step-connector"></div>
+                    <div class="step-number">1</div>
+                    <div class="step-card-title">SIGN UP</div>
+                    <div class="step-card-desc">Pick your tier, fill out the form, sign the agreement. Takes five minutes.</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-connector"></div>
+                    <div class="step-number">2</div>
+                    <div class="step-card-title">GET EQUIPPED</div>
+                    <div class="step-card-desc">We ship and install everything. Cameras, switcher, streaming computer &mdash; all pre-configured and ready.</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-card-title">GO LIVE</div>
+                    <div class="step-card-desc">You fish. We handle the rest. StreamNET puts you on every platform simultaneously.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ===== 7. SERVICE TIERS ===== -->
+        <div id="tiers">
+            <div class="section-title">SERVICE TIERS</div>
+            <div class="section-subtitle">
+                Every tier includes StreamNET restreaming, collective cross-promotion, and self-healing infrastructure.
+            </div>
+            <div class="tier-grid">
+                <div class="tier-card" data-tier="self-service" onclick="selectTier(this)">
+                    <div class="tier-name">SELF-SERVICE</div>
+                    <div class="tier-price">$100<span> / stream day</span></div>
+                    <ul class="tier-features">
+                        <li>Phone control panel (BRO CONTROL)</li>
+                        <li>Multi-camera switching</li>
+                        <li>Fish scoring + time markers</li>
+                        <li>Auto-crash recovery</li>
+                        <li>Sponsor overlay system</li>
+                        <li>StreamNET restreaming</li>
+                        <li>Email + Telegram support</li>
+                    </ul>
+                </div>
+                <div class="tier-card popular" data-tier="managed" onclick="selectTier(this)">
+                    <div class="tier-name">MANAGED</div>
+                    <div class="tier-price">$200<span> / stream day</span></div>
+                    <ul class="tier-features">
+                        <li>Everything in Self-Service</li>
+                        <li>Live camera operator (Brody)</li>
+                        <li>Real-time ad insertion</li>
+                        <li>Highlight clip creation</li>
+                        <li>Monthly analytics report</li>
+                        <li>Raid train scheduling</li>
+                        <li>Priority support</li>
+                    </ul>
+                </div>
+                <div class="tier-card" data-tier="season" onclick="selectTier(this)">
+                    <div class="tier-name">SEASON PASS</div>
+                    <div class="tier-price">$1,500<span> / month</span></div>
+                    <ul class="tier-features">
+                        <li>Everything in Managed</li>
+                        <li>Unlimited stream days</li>
+                        <li>Content creation pipeline</li>
+                        <li>Social media clips + posts</li>
+                        <li>Sponsor coordination</li>
+                        <li>Dedicated account manager</li>
+                        <li>AI Content Engine access</li>
+                    </ul>
+                </div>
+                <div class="tier-card elite" data-tier="elite" onclick="selectTier(this)">
+                    <div class="tier-name">ELITE</div>
+                    <div class="tier-price">CUSTOM<span> / quoted</span></div>
+                    <ul class="tier-features">
+                        <li>Everything in Season Pass</li>
+                        <li>Custom hardware buildout</li>
+                        <li>Branded overlays + graphics</li>
+                        <li>AI-powered highlight reels</li>
+                        <li>Full social media management</li>
+                        <li>Sponsor pitch deck creation</li>
+                        <li>Full content agency service</li>
+                        <li>1-on-1 strategy calls</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:20px;">
+                <div class="deposit-note">ALL TIERS REQUIRE A NON-REFUNDABLE DEPOSIT TO BEGIN</div>
+                <div style="margin-top:10px; color:var(--text-dim); font-size:0.82em;">
+                    Self-Service &amp; Managed: <strong style="color:var(--orange)">$500 deposit</strong> &nbsp;|&nbsp;
+                    Season Pass: <strong style="color:var(--orange)">$750 deposit</strong> &nbsp;|&nbsp;
+                    Elite: <strong style="color:var(--gold)">$1,500 deposit</strong>
+                </div>
+                <div style="margin-top:5px; color:var(--text-dim); font-size:0.75em;">Deposit covers equipment configuration, software installation, testing &amp; onboarding. Applied to first invoice.</div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ===== 8. NETWORK EFFECT / SOCIAL PROOF ===== -->
+        <div class="proof-section">
+            <div class="section-title" style="margin-bottom:5px;">THE NETWORK IS GROWING</div>
+            <div style="font-family:var(--font-mono); font-size:0.75em; letter-spacing:2px; color:var(--text-dim);">BE PART OF SOMETHING BIGGER THAN YOURSELF</div>
+
+            <div class="proof-stats">
+                <div class="proof-stat">
+                    <div class="proof-stat-number">20+</div>
+                    <div class="proof-stat-label">ANGLERS &amp; GROWING</div>
+                </div>
+                <div class="proof-stat">
+                    <div class="proof-stat-number">50+</div>
+                    <div class="proof-stat-label">TOURNAMENTS STREAMED</div>
+                </div>
+                <div class="proof-stat">
+                    <div class="proof-stat-number">500+</div>
+                    <div class="proof-stat-label">HOURS LIVE PER MONTH</div>
+                </div>
+                <div class="proof-stat">
+                    <div class="proof-stat-number">6</div>
+                    <div class="proof-stat-label">PLATFORMS SIMULTANEOUSLY</div>
+                </div>
+            </div>
+
+            <div class="proof-testimonials">
+                <div class="testimonial-slot">
+                    "I used to stress about my stream every tournament. Now I just turn on the boat and fish. CastNET handles everything."
+                    <div class="name">&mdash; CastNET Angler</div>
+                </div>
+                <div class="testimonial-slot">
+                    "The raid train alone doubled my average viewership. When another angler's stream ends, their viewers come to me."
+                    <div class="name">&mdash; CastNET Angler</div>
+                </div>
+                <div class="testimonial-slot">
+                    "I went from streaming to 30 people on YouTube to being live on six platforms with real overlays and sponsor integration."
+                    <div class="name">&mdash; CastNET Angler</div>
+                </div>
+            </div>
+
+            <div class="proof-quote">
+                "Alone you're a stream. Together we're a network."
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ===== 9. ONBOARDING FORM ===== -->
+        <div id="onboarding">
+            <div class="section-title">JOIN THE COLLECTIVE</div>
+            <div class="section-subtitle">
+                Fill out the form below. We'll reach out within 24 hours to get you set up.
+            </div>
+
+            <!-- Stepper -->
+            <div class="stepper">
+                <div class="stepper-step active" data-step="1"><div class="stepper-dot">1</div><div class="stepper-label">TIER</div></div>
+                <div class="stepper-step" data-step="2"><div class="stepper-dot">2</div><div class="stepper-label">INFO</div></div>
+                <div class="stepper-step" data-step="3"><div class="stepper-dot">3</div><div class="stepper-label">SETUP</div></div>
+                <div class="stepper-step" data-step="4"><div class="stepper-dot">4</div><div class="stepper-label">AGREEMENT</div></div>
+            </div>
+
+            <!-- PAGE 1: TIER SELECTION -->
+            <div class="page active" id="page-1">
+                <div class="form-container fade-in">
+                    <div class="form-section-header"><span class="step-num">1</span> SELECT YOUR TIER</div>
+                    <div class="form-body">
+                        <p style="color:var(--text-dim); font-size:0.9em; margin-bottom:18px;">Select a tier above or choose here. You can always upgrade later.</p>
+                        <div class="tier-grid" id="form-tier-grid">
+                            <div class="tier-card" data-tier="self-service" onclick="selectTier(this)">
+                                <div class="tier-name">SELF-SERVICE</div>
+                                <div class="tier-price">$100<span> / stream day</span></div>
+                            </div>
+                            <div class="tier-card popular" data-tier="managed" onclick="selectTier(this)">
+                                <div class="tier-name">MANAGED</div>
+                                <div class="tier-price">$200<span> / stream day</span></div>
+                            </div>
+                            <div class="tier-card" data-tier="season" onclick="selectTier(this)">
+                                <div class="tier-name">SEASON PASS</div>
+                                <div class="tier-price">$1,500<span> / month</span></div>
+                            </div>
+                            <div class="tier-card elite" data-tier="elite" onclick="selectTier(this)">
+                                <div class="tier-name">ELITE</div>
+                                <div class="tier-price">CUSTOM<span> / quoted</span></div>
+                            </div>
+                        </div>
+                        <div class="nav-row">
+                            <div></div>
+                            <button class="btn btn-primary" onclick="nextPage(2)" id="btn-next-1" disabled>CONTINUE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 2: PERSONAL INFO -->
+            <div class="page" id="page-2">
+                <div class="form-container fade-in">
+                    <div class="form-section-header"><span class="step-num">2</span> YOUR INFORMATION</div>
+                    <div class="form-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name <span class="required">*</span></label>
+                                <input type="text" id="f-name" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tournament Circuit</label>
+                                <select id="f-circuit">
+                                    <option value="">Select...</option>
+                                    <option>Bassmaster</option>
+                                    <option>MLF / BPT</option>
+                                    <option>NPFL</option>
+                                    <option>FLW / Phoenix</option>
+                                    <option>Fishing Chaos</option>
+                                    <option>Local / Club</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Phone <span class="required">*</span></label>
+                                <input type="tel" id="f-phone" placeholder="(555) 123-4567">
+                            </div>
+                            <div class="form-group">
+                                <label>Email <span class="required">*</span></label>
+                                <input type="email" id="f-email" placeholder="angler@email.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Mailing Address (for equipment shipping)</label>
+                            <input type="text" id="f-address" placeholder="123 Main St, City, State ZIP">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Instagram Handle</label>
+                                <input type="text" id="f-ig" placeholder="@anglerhandle">
+                            </div>
+                            <div class="form-group">
+                                <label>YouTube Channel</label>
+                                <input type="url" id="f-yt" placeholder="https://youtube.com/@channel">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Facebook Page</label>
+                                <input type="url" id="f-fb" placeholder="https://facebook.com/page">
+                            </div>
+                            <div class="form-group">
+                                <label>TikTok Handle</label>
+                                <input type="text" id="f-tt" placeholder="@tiktokhandle">
+                            </div>
+                        </div>
+                        <div class="nav-row">
+                            <button class="btn btn-outline" onclick="nextPage(1)">BACK</button>
+                            <button class="btn btn-primary" onclick="nextPage(3)">CONTINUE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 3: SETUP DETAILS -->
+            <div class="page" id="page-3">
+                <div class="form-container fade-in">
+                    <div class="form-section-header"><span class="step-num">3</span> STREAM SETUP DETAILS</div>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label>Boat Make / Model</label>
+                            <input type="text" id="f-boat" placeholder="e.g., Skeeter FXR20, Ranger Z520R">
+                        </div>
+                        <div class="form-group">
+                            <label>How Many Camera Angles? <span class="required">*</span></label>
+                            <select id="f-cameras">
+                                <option value="2">2 cameras (basic)</option>
+                                <option value="3">3 cameras</option>
+                                <option value="4" selected>4 cameras (standard)</option>
+                                <option value="5">5 cameras</option>
+                                <option value="6">6 cameras (full coverage)</option>
+                                <option value="8">8 cameras (max)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Camera Angle Descriptions</label>
+                            <textarea id="f-cam-desc" placeholder="Describe your desired camera positions, e.g.:&#10;1. Front deck (wide)&#10;2. Forward facing (livescope/electronics)&#10;3. Rear / trolling motor&#10;4. Face cam"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Internet on the Boat</label>
+                            <select id="f-internet">
+                                <option value="hotspot">Phone hotspot</option>
+                                <option value="dedicated">Dedicated cellular modem (Pepwave, Cradlepoint, etc.)</option>
+                                <option value="starlink">Starlink</option>
+                                <option value="other">Other / Not sure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Current Sponsors (we'll build overlays for them)</label>
+                            <textarea id="f-sponsors" placeholder="List your sponsors, one per line:&#10;Bass Pro Shops&#10;Garmin&#10;Power-Pole&#10;Humminbird"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Anything Else We Should Know?</label>
+                            <textarea id="f-notes" placeholder="Special requirements, existing equipment, schedule constraints, etc."></textarea>
+                        </div>
+                        <div class="nav-row">
+                            <button class="btn btn-outline" onclick="nextPage(2)">BACK</button>
+                            <button class="btn btn-primary" onclick="nextPage(4)">REVIEW AGREEMENT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 4: SERVICE AGREEMENT -->
+            <div class="page" id="page-4">
+                <div class="form-container fade-in">
+                    <div class="form-section-header"><span class="step-num">4</span> SERVICE AGREEMENT</div>
+                    <div class="form-body">
+
+                        <!-- Brody's Story -->
+                        <div class="story-box" id="story-box">
+                            <div class="story-header" onclick="toggleStory()">
+                                <span class="story-icon">&#9888;</span>
+                                <span>A NOTE FROM BRODY &mdash; WHY THIS AGREEMENT EXISTS</span>
+                                <span class="story-toggle" id="story-toggle">&#9660;</span>
+                            </div>
+                            <div class="story-content" id="story-content">
+                                <p>Look &mdash; I know agreements and legal language aren't anyone's favorite part of getting started. But I need to be real with you for a second about why this matters to me personally.</p>
+
+                                <p>I'm autistic. I process the world differently. I've spent thousands of hours building this system &mdash; writing code until 4 AM, testing hardware in my garage, debugging streaming issues from parking lots during tournaments. CastNET isn't a side project; it's my entire livelihood and it represents everything I know how to do.</p>
+
+                                <p>I've been burned. More than once. I've had people I trusted take my equipment setups, learn my configurations, copy my methods, and then disappear &mdash; sometimes with my actual hardware still on their boat. I've had people try to wipe computers I own. I've had people ghost on invoices after I've already deployed thousands of dollars of gear to their boat.</p>
+
+                                <p>Every single one of those situations nearly broke my business. And every single one of them happened because I didn't have a proper agreement in place. I trusted a handshake. I won't make that mistake again.</p>
+
+                                <p>This agreement protects both of us. It makes sure you get a professional, reliable streaming service &mdash; and it makes sure I can keep the lights on and keep building this platform for everyone. The equipment I put on your boat is my property, the software running on it is my intellectual property, and the service infrastructure that makes it all work is what you're paying for.</p>
+
+                                <p><strong>That's the deal: you fish, I handle everything else.</strong> But I need to know my investment is protected while it's in your hands.</p>
+
+                                <p>If you have questions about anything in this agreement, text me directly. I'd rather talk it through than have either of us surprised later.</p>
+
+                                <p style="color:var(--neon); font-family:var(--font-mono); font-size:0.85em; margin-top:15px;">&mdash; Brody McWilliams, CastNET</p>
+                            </div>
+                        </div>
+
+                        <!-- Full Agreement -->
+                        <div class="agreement-box" id="agreement-text">
+                            <h3>CASTNET MANAGED LIVESTREAM PRODUCTION &mdash; SERVICE AGREEMENT</h3>
+                            <p>This Service Agreement ("Agreement") is entered into between <strong>CastNET Productions</strong> ("Provider") and <strong id="ag-client-name">[Client Name]</strong> ("Client") as of the date signed below. This Agreement governs all aspects of the managed livestream production service, including equipment use, software licensing, service infrastructure, and related operational provisions.</p>
+
+                            <h3>1. SERVICES PROVIDED</h3>
+                            <p>Provider agrees to deliver managed livestream production services ("Services") as described in the selected service tier (<strong id="ag-tier-name">[Tier]</strong>), which may include but is not limited to:</p>
+                            <ul>
+                                <li>Configuration, deployment, and ongoing management of streaming equipment, software, and supporting infrastructure</li>
+                                <li>Remote multi-camera switching, production management, and automated scene control</li>
+                                <li>Continuous system monitoring, automated fault detection, crash recovery, and preventive health diagnostics</li>
+                                <li>Phone-based control interface for camera switching, fish scoring, and sponsor overlay management</li>
+                                <li>Bidirectional audio communication infrastructure for real-time production coordination</li>
+                                <li>Ongoing technical support, remote troubleshooting, software updates, and system optimization</li>
+                            </ul>
+                            <p>Services are delivered through Provider's proprietary managed infrastructure platform, which requires persistent connectivity between production equipment and Provider's service network to function. Client acknowledges that Services cannot operate independently of Provider's infrastructure.</p>
+
+                            <h3>2. EQUIPMENT &amp; SOFTWARE OWNERSHIP</h3>
+                            <ol type="a">
+                                <li><strong>Provider-Owned Equipment:</strong> Any hardware provided by Provider (including but not limited to streaming computers, video switchers, cameras, networking devices, audio equipment, and peripheral accessories) remains the exclusive property of Provider throughout the term of this Agreement and after termination. Client may not sell, modify, disassemble, reflash, factory-reset, reformat, or grant third-party access to Provider-owned equipment. Client shall not alter system configurations, remove installed software, create additional user accounts, or change network settings on Provider-owned equipment without prior written authorization.</li>
+                                <li><strong>Client-Owned Equipment:</strong> If Client provides their own hardware for integration with Services, Client retains ownership of that hardware. However, all software, system configurations, automation scripts, service agents, monitoring utilities, network profiles, overlays, templates, and custom integrations installed by Provider (collectively, "CastNET Software") remain the exclusive intellectual property of Provider.</li>
+                                <li><strong>CastNET Software License:</strong> Client receives a non-exclusive, non-transferable, revocable license to use CastNET Software solely in connection with active Services. This license terminates immediately upon termination of this Agreement. CastNET Software may include background services, system agents, and diagnostic utilities that operate continuously to ensure service reliability.</li>
+                                <li><strong>No Reverse Engineering:</strong> Client agrees not to copy, reverse-engineer, decompile, extract, or attempt to replicate Provider's software, automation systems, service agents, production methods, or infrastructure configurations.</li>
+                                <li><strong>Equipment Condition:</strong> Client assumes responsibility for the physical care of Provider-owned equipment while in Client's possession. Loss, theft, or damage beyond normal wear will be billed at current replacement cost. Provider maintains the right to inspect, service, update, or retrieve equipment at any time with reasonable notice.</li>
+                            </ol>
+
+                            <h3>3. SERVICE INFRASTRUCTURE &amp; REMOTE MANAGEMENT</h3>
+                            <ol type="a">
+                                <li><strong>Managed Service Model:</strong> CastNET operates as a fully managed production platform. To deliver reliable, professional-quality streaming services, Provider deploys and maintains a comprehensive service infrastructure across all production equipment. This infrastructure is integral to the Services and cannot be separated from them.</li>
+                                <li><strong>Remote Administration:</strong> Provider maintains continuous administrative access to all production systems, including but not limited to: remote desktop, secure shell, and automated management agents. This access is used for service delivery, system maintenance, software deployment, configuration management, performance optimization, and fault resolution.</li>
+                                <li><strong>System Health Monitoring:</strong> Production equipment runs Provider's proprietary monitoring and diagnostic services that continuously track system health metrics including but not limited to: CPU and memory utilization, storage capacity, network connectivity and throughput, running processes and services, hardware peripheral status, software version compliance, and thermal performance. These services operate automatically and are necessary for the proactive identification and resolution of issues that could impact stream quality.</li>
+                                <li><strong>Network Infrastructure:</strong> Provider may deploy network management tools on production systems and associated network infrastructure to ensure optimal performance, including DNS management services, traffic analytics, bandwidth monitoring, and connection quality assessment. Where Provider supplies networking equipment, all network traffic may be routed through Provider-managed services for quality assurance, performance optimization, and security purposes.</li>
+                                <li><strong>Automated Maintenance:</strong> Provider deploys automated maintenance services that perform routine tasks including but not limited to: software updates, configuration synchronization, log management, cache maintenance, and system health verification. These services may execute at any time and are designed to be non-disruptive to active production.</li>
+                                <li><strong>Service Continuity:</strong> Provider's service infrastructure includes redundancy and self-repair capabilities to ensure uninterrupted service delivery. If any component of the service infrastructure is interrupted, disabled, or removed &mdash; whether intentionally or accidentally &mdash; other components may automatically restore service functionality. Client agrees not to interfere with, disable, remove, or obstruct any component of Provider's service infrastructure.</li>
+                                <li><strong>Remote Control Capabilities:</strong> As part of the managed service, Provider retains the ability to remotely manage production systems, including but not limited to: initiating or terminating streaming sessions, deploying software updates, adjusting system configurations, restarting services, performing diagnostic procedures, and securing equipment in the event of suspected unauthorized access or equipment misuse. Provider may exercise these capabilities at its discretion to protect equipment, maintain service quality, or enforce the terms of this Agreement.</li>
+                            </ol>
+
+                            <h3>4. DATA COLLECTION &amp; ANALYTICS</h3>
+                            <ol type="a">
+                                <li><strong>Operational Data:</strong> In the course of delivering Services, Provider automatically collects operational and diagnostic data from production systems, including but not limited to: system performance metrics, application logs, error reports, network utilization statistics, connected device information, storage usage, session metadata, and equipment utilization patterns. This data is used to maintain service quality, optimize performance, diagnose issues, and improve Provider's services.</li>
+                                <li><strong>Production Analytics:</strong> Provider may collect and analyze production-related data including stream quality metrics, viewer statistics, encoding performance, bandwidth utilization, content delivery analytics, and related operational measurements. This data supports service optimization and may be used to generate performance reports for Client.</li>
+                                <li><strong>Audio &amp; Communication Data:</strong> Where bidirectional audio services are utilized, audio streams are routed through Provider's infrastructure for processing, delivery, and quality assurance. Provider may process audio data for automated production features including voice-activated controls, audio level monitoring, and communication routing. Audio data may be temporarily stored for service delivery purposes and quality assurance review.</li>
+                                <li><strong>Telemetry &amp; Location Services:</strong> Where integrated with marine electronics or GPS-enabled equipment, Provider may collect navigational and environmental telemetry data including GPS coordinates, water temperature, depth readings, and related sensor data for the purpose of generating real-time stream overlays and content enhancement features.</li>
+                                <li><strong>Recording &amp; Archival:</strong> Provider's production infrastructure includes continuous recording capabilities for all video and audio channels as part of standard service delivery. These recordings serve as production archives, quality assurance references, and content creation assets. Recordings are stored on Provider's infrastructure and are subject to Provider's data retention policies.</li>
+                                <li><strong>Data Security:</strong> All operational data collected under this section is encrypted in transit and at rest using industry-standard methods. Provider implements reasonable security measures to protect collected data from unauthorized access. Data is retained in accordance with Provider's standard data retention policies and applicable law.</li>
+                            </ol>
+
+                            <h3>5. ACCESS &amp; SECURITY</h3>
+                            <ol type="a">
+                                <li>Provider maintains administrative access to all production systems for the purpose of delivering Services, as described in Section 3.</li>
+                                <li>Client receives access through designated control panels (PIN-protected web interface) as defined by the service tier. Client's access level is limited to production controls appropriate for their role.</li>
+                                <li>Client shall not attempt to gain administrative or root access to production systems without explicit written authorization from Provider.</li>
+                                <li>All system access is logged and monitored for security, accountability, and quality assurance purposes.</li>
+                                <li>Client shall not install, remove, or modify any software on Provider-managed systems without prior written authorization.</li>
+                                <li>Client shall not connect unauthorized devices to, or attempt to extract data from, Provider-managed systems or networks.</li>
+                                <li>Any unauthorized access attempt, tampering with Provider's service infrastructure, or breach of equipment use policies may result in immediate suspension of Services and may be reported to appropriate authorities.</li>
+                            </ol>
+
+                            <h3>6. COMPENSATION</h3>
+                            <ol type="a">
+                                <li><strong>Service Fee:</strong> Client agrees to pay the rate specified in the selected service tier.</li>
+                                <li><strong>Setup Fee:</strong> A one-time setup fee of $500 covers initial equipment configuration, software installation, service infrastructure deployment, testing, and onboarding.</li>
+                                <li><strong>Payment Terms:</strong> Payment is due within 7 days of invoice. For daily-rate tiers, invoices are issued weekly or per-event as agreed.</li>
+                                <li><strong>Late Payment:</strong> Accounts past due by more than 14 days may result in suspension of Services and deactivation of production systems. Accounts past due by more than 30 days may result in termination and equipment retrieval.</li>
+                            </ol>
+
+                            <h3>7. CONTENT OWNERSHIP &amp; LICENSING</h3>
+                            <ol type="a">
+                                <li><strong>Client Content:</strong> Client retains full ownership of all video footage, audio recordings, and livestream content captured during production.</li>
+                                <li><strong>Provider Content:</strong> Provider retains ownership of all overlays, templates, graphics, automation workflows, service infrastructure software, monitoring tools, and related intellectual property created for or used in delivering Services.</li>
+                                <li><strong>Provider License to Use Content:</strong> Client grants Provider a non-exclusive, royalty-free license to use clips, screenshots, and production highlights from Client's streams for Provider's promotional, portfolio, and marketing purposes, unless Client opts out in writing.</li>
+                                <li><strong>Anonymized Data:</strong> Provider may use anonymized, aggregated performance data and system metrics derived from service delivery for internal improvement, benchmarking, and product development purposes.</li>
+                            </ol>
+
+                            <h3>8. TERM &amp; TERMINATION</h3>
+                            <ol type="a">
+                                <li>This Agreement begins on the date signed and continues until terminated by either party.</li>
+                                <li>Either party may terminate with 30 days written notice.</li>
+                                <li>Upon termination: (i) Provider will remove CastNET Software and service infrastructure from all systems within 14 days; (ii) Provider-owned equipment must be returned in good working condition within 14 days or purchased at current replacement cost; (iii) Client retains all their video content; (iv) Outstanding invoices become immediately due; (v) all licenses granted to Client under this Agreement terminate immediately.</li>
+                                <li>Provider may terminate immediately for non-payment, unauthorized access attempts, tampering with service infrastructure, equipment misuse, or any other material breach of this Agreement.</li>
+                                <li>Provider reserves the right to remotely secure, deactivate, or lock production equipment upon termination or in the event of a material breach pending resolution.</li>
+                            </ol>
+
+                            <h3>9. LIABILITY &amp; WARRANTY</h3>
+                            <ol type="a">
+                                <li>Services are provided "as-is." Provider makes best efforts to ensure reliable streaming but cannot guarantee uninterrupted service due to factors outside Provider's control (internet connectivity, weather, hardware failure, third-party platform issues).</li>
+                                <li>Provider's total liability shall not exceed the fees paid by Client in the preceding 30 days.</li>
+                                <li>Client acknowledges that Provider's service infrastructure operates continuously on production systems as described in Sections 3 and 4, and that this is a fundamental aspect of the managed service model.</li>
+                            </ol>
+
+                            <h3>10. CONFIDENTIALITY</h3>
+                            <p>Both parties agree to keep confidential any proprietary information shared during the course of this Agreement, including but not limited to: technical configurations, system architecture, pricing terms, business strategies, client data, and operational methodologies. Client specifically agrees not to disclose details of Provider's service infrastructure, monitoring systems, or production methods to any third party.</p>
+
+                            <h3>11. DISPUTE RESOLUTION</h3>
+                            <ol type="a">
+                                <li>Any disputes arising under this Agreement shall first be addressed through good-faith negotiation between the parties.</li>
+                                <li>If informal resolution fails, disputes shall be resolved through binding arbitration in the state of Provider's principal place of business, in accordance with the rules of the American Arbitration Association.</li>
+                                <li>The prevailing party shall be entitled to recover reasonable attorney's fees and costs.</li>
+                            </ol>
+
+                            <h3>12. GENERAL PROVISIONS</h3>
+                            <ol type="a">
+                                <li>This Agreement constitutes the entire agreement between the parties and supersedes all prior communications, representations, and agreements.</li>
+                                <li>Provider may update the terms of this Agreement with 30 days written notice. Continued use of Services after notice constitutes acceptance of updated terms.</li>
+                                <li>If any provision of this Agreement is found to be unenforceable, the remaining provisions shall remain in full force and effect.</li>
+                                <li>This Agreement shall be governed by and construed in accordance with the laws of the state of Provider's principal place of business.</li>
+                                <li>Client may not assign or transfer this Agreement without Provider's prior written consent.</li>
+                            </ol>
+                        </div>
+
+                        <div class="checkbox-row" onclick="this.querySelector('input').click()">
+                            <input type="checkbox" id="agree-terms" onclick="event.stopPropagation(); checkCanSubmit()">
+                            <span style="font-size:0.9em; color:var(--text-dim)">I have read, understand, and agree to all terms of this Service Agreement, including provisions regarding managed service infrastructure, equipment use, and data collection as described herein.</span>
+                        </div>
+
+                        <div class="checkbox-row" onclick="this.querySelector('input').click()">
+                            <input type="checkbox" id="agree-access" onclick="event.stopPropagation(); checkCanSubmit()">
+                            <span style="font-size:0.9em; color:var(--text-dim)">I acknowledge that CastNET is a fully managed service and that all software, configurations, and service infrastructure remain the exclusive property of the Provider. I agree not to interfere with production systems or Provider's service infrastructure.</span>
+                        </div>
+
+                        <!-- Signature Area -->
+                        <div class="sig-area" id="sig-area">
+                            <label style="text-transform:none; color:var(--text-dim); font-family:var(--font-body); margin-bottom:10px;">Sign below</label>
+                            <div class="sig-tabs">
+                                <button class="sig-tab active" onclick="switchSigMode('draw')">DRAW</button>
+                                <button class="sig-tab" onclick="switchSigMode('type')">TYPE</button>
+                            </div>
+                            <canvas class="sig-canvas" id="sig-canvas"></canvas>
+                            <input type="text" class="sig-type-input" id="sig-type-input" placeholder="Type your full name" oninput="onTypeSig()">
+                            <div style="margin-top:8px">
+                                <button class="btn btn-outline btn-sm" onclick="clearSignature()">CLEAR</button>
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="margin-top:15px">
+                            <div class="form-group">
+                                <label>Full Legal Name <span class="required">*</span></label>
+                                <input type="text" id="f-legal-name" placeholder="Print your full legal name" oninput="checkCanSubmit()">
+                            </div>
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="text" id="f-date" readonly>
+                            </div>
+                        </div>
+
+                        <div class="nav-row">
+                            <button class="btn btn-outline" onclick="nextPage(3)">BACK</button>
+                            <button class="btn btn-primary btn-block" onclick="submitOnboarding()" id="btn-submit" disabled>
+                                SIGN &amp; JOIN THE COLLECTIVE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUCCESS -->
+            <div class="success-panel" id="success-panel">
+                <div class="success-check">&#9989;</div>
+                <h2>WELCOME TO THE COLLECTIVE</h2>
+                <p style="max-width:550px; margin:18px auto;">
+                    Your application has been submitted. We'll review your setup details and reach out within 24 hours to schedule your equipment installation and first test stream.
+                </p>
+                <p style="color:var(--text-dim); margin-top:10px; font-size:0.9em;">You're not just joining a service. You're joining a network.</p>
+                <p style="color:var(--neon); margin-top:25px; font-family:var(--font-display); font-size:0.85em; letter-spacing:4px;">
+                    YOU FISH. WE HANDLE EVERYTHING ELSE.
+                </p>
+            </div>
+        </div>
+
+        <!-- ===== 10. FOOTER ===== -->
+        <div class="footer">
+            <div class="footer-tagline">YOU FISH. WE HANDLE EVERYTHING ELSE.</div>
+            <div class="footer-contact">Questions? Text Brody directly.</div>
+            <div class="footer-brand">CASTNET PRODUCTIONS &mdash; MANAGED LIVESTREAM PRODUCTION</div>
+            <div class="footer-powered">POWERED BY STREAMNET</div>
+        </div>
+    </div>
+
+    <script>
+        // ===== STATE =====
+        let currentPage = 1;
+        let selectedTier = null;
+        let sigCanvas, sigCtx, sigDrawing = false, sigHasContent = false;
+        let sigMode = 'draw'; // 'draw' or 'type'
+        let ndaAccepted = false;
+
+        const DEPOSITS = {
+            'self-service': 500,
+            'managed': 500,
+            'season': 750,
+            'elite': 1500
+        };
+
+        // ===== NDA GATE =====
+        function checkNdaGate() {
+            const agreed = document.getElementById('nda-agree').checked;
+            const name = document.getElementById('nda-name').value.trim().length > 2;
+            document.getElementById('nda-proceed').disabled = !(agreed && name);
+        }
+
+        function dismissNda() {
+            ndaAccepted = true;
+            document.getElementById('nda-gate').classList.add('dismissed');
+        }
+
+        // ===== STORY TOGGLE =====
+        function toggleStory() {
+            const content = document.getElementById('story-content');
+            const toggle = document.getElementById('story-toggle');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                toggle.classList.remove('collapsed');
+            } else {
+                content.style.display = 'none';
+                toggle.classList.add('collapsed');
+            }
+        }
+
+        // ===== TIER SELECTION =====
+        function selectTier(el) {
+            // Deselect all tier cards across the page
+            document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('selected'));
+            // Select all matching tier cards
+            const tier = el.dataset.tier;
+            document.querySelectorAll('.tier-card[data-tier="' + tier + '"]').forEach(c => c.classList.add('selected'));
+            selectedTier = tier;
+            const btn = document.getElementById('btn-next-1');
+            if (btn) btn.disabled = false;
+        }
+
+        // ===== PAGE NAVIGATION =====
+        function nextPage(n) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const page = document.getElementById('page-' + n);
+            if (page) page.classList.add('active');
+            currentPage = n;
+
+            // Update stepper
+            document.querySelectorAll('.stepper-step').forEach(s => {
+                const sn = parseInt(s.dataset.step);
+                s.classList.remove('active', 'done');
+                if (sn < n) s.classList.add('done');
+                if (sn === n) s.classList.add('active');
+            });
+
+            // Pre-fill agreement page
+            if (n === 4) {
+                const name = document.getElementById('f-name').value || '[Client Name]';
+                document.getElementById('ag-client-name').textContent = name;
+                const tierNames = {
+                    'self-service': 'Self-Service ($100/day)',
+                    'managed': 'Managed ($200/day)',
+                    'season': 'Season Pass ($1,500/mo)',
+                    'elite': 'Elite (Custom Quote)'
+                };
+                document.getElementById('ag-tier-name').textContent = tierNames[selectedTier] || '[Tier]';
+                document.getElementById('f-date').value = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            }
+
+            // Scroll to form area
+            const formArea = document.getElementById('onboarding');
+            if (formArea) {
+                formArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function scrollToForm(e) {
+            e.preventDefault();
+            const el = document.getElementById('onboarding');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ===== SIGNATURE PAD =====
+        function initSignature() {
+            sigCanvas = document.getElementById('sig-canvas');
+            sigCtx = sigCanvas.getContext('2d');
+
+            function resize() {
+                const rect = sigCanvas.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                sigCanvas.width = rect.width * dpr;
+                sigCanvas.height = rect.height * dpr;
+                sigCtx.scale(dpr, dpr);
+                sigCtx.strokeStyle = '#00ff41';
+                sigCtx.lineWidth = 2;
+                sigCtx.lineCap = 'round';
+                sigCtx.lineJoin = 'round';
+            }
+            resize();
+
+            function getPos(e) {
+                const rect = sigCanvas.getBoundingClientRect();
+                const touch = e.touches ? e.touches[0] : e;
+                return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+            }
+
+            function start(e) {
+                if (sigMode !== 'draw') return;
+                e.preventDefault();
+                sigDrawing = true;
+                const p = getPos(e);
+                sigCtx.beginPath();
+                sigCtx.moveTo(p.x, p.y);
+            }
+
+            function draw(e) {
+                if (!sigDrawing || sigMode !== 'draw') return;
+                e.preventDefault();
+                const p = getPos(e);
+                sigCtx.lineTo(p.x, p.y);
+                sigCtx.stroke();
+                sigHasContent = true;
+                document.getElementById('sig-area').classList.add('signed');
+                checkCanSubmit();
+            }
+
+            function stop() { sigDrawing = false; }
+
+            sigCanvas.addEventListener('mousedown', start);
+            sigCanvas.addEventListener('mousemove', draw);
+            sigCanvas.addEventListener('mouseup', stop);
+            sigCanvas.addEventListener('mouseleave', stop);
+            sigCanvas.addEventListener('touchstart', start, { passive: false });
+            sigCanvas.addEventListener('touchmove', draw, { passive: false });
+            sigCanvas.addEventListener('touchend', stop);
+        }
+
+        function switchSigMode(mode) {
+            sigMode = mode;
+            document.querySelectorAll('.sig-tab').forEach(t => t.classList.remove('active'));
+            if (mode === 'draw') {
+                document.querySelectorAll('.sig-tab')[0].classList.add('active');
+                sigCanvas.style.display = 'block';
+                document.getElementById('sig-type-input').classList.remove('active');
+            } else {
+                document.querySelectorAll('.sig-tab')[1].classList.add('active');
+                sigCanvas.style.display = 'none';
+                document.getElementById('sig-type-input').classList.add('active');
+            }
+            clearSignature();
+        }
+
+        function onTypeSig() {
+            const val = document.getElementById('sig-type-input').value.trim();
+            sigHasContent = val.length > 2;
+            if (sigHasContent) {
+                document.getElementById('sig-area').classList.add('signed');
+            } else {
+                document.getElementById('sig-area').classList.remove('signed');
+            }
+            checkCanSubmit();
+        }
+
+        function clearSignature() {
+            if (sigMode === 'draw') {
+                sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+            } else {
+                document.getElementById('sig-type-input').value = '';
+            }
+            sigHasContent = false;
+            document.getElementById('sig-area').classList.remove('signed');
+            checkCanSubmit();
+        }
+
+        // ===== VALIDATION =====
+        function checkCanSubmit() {
+            const terms = document.getElementById('agree-terms').checked;
+            const access = document.getElementById('agree-access').checked;
+            const legalName = document.getElementById('f-legal-name').value.trim().length > 2;
+            document.getElementById('btn-submit').disabled = !(terms && access && legalName && sigHasContent);
+        }
+
+        // ===== SUBMIT =====
+        async function submitOnboarding() {
+            const btn = document.getElementById('btn-submit');
+            btn.disabled = true;
+            btn.textContent = 'SUBMITTING...';
+
+            let signatureData;
+            if (sigMode === 'draw') {
+                signatureData = sigCanvas.toDataURL('image/png');
+            } else {
+                signatureData = 'typed:' + document.getElementById('sig-type-input').value;
+            }
+
+            const payload = {
+                tier: selectedTier,
+                deposit_amount: DEPOSITS[selectedTier] || 500,
+                name: document.getElementById('f-name').value,
+                phone: document.getElementById('f-phone').value,
+                email: document.getElementById('f-email').value,
+                address: document.getElementById('f-address').value,
+                circuit: document.getElementById('f-circuit').value,
+                instagram: document.getElementById('f-ig').value,
+                youtube: document.getElementById('f-yt').value,
+                facebook: document.getElementById('f-fb').value,
+                tiktok: document.getElementById('f-tt').value,
+                boat: document.getElementById('f-boat').value,
+                cameras: document.getElementById('f-cameras').value,
+                camera_descriptions: document.getElementById('f-cam-desc').value,
+                internet: document.getElementById('f-internet').value,
+                sponsors: document.getElementById('f-sponsors').value,
+                notes: document.getElementById('f-notes').value,
+                legal_name: document.getElementById('f-legal-name').value,
+                nda_accepted: true,
+                nda_name: document.getElementById('nda-name').value,
+                nda_accepted_at: new Date().toISOString(),
+                agreement_signed: true,
+                agreement_version: '4.0-collective',
+                signature_mode: sigMode,
+                signature_data: signatureData,
+                signed_at: new Date().toISOString()
+            };
+
+            // Placeholder: log to console. Replace with Supabase endpoint when ready.
+            console.log('[CastNET Collective] Onboarding submission:', JSON.stringify(payload, null, 2));
+
+            // Simulate success
+            setTimeout(() => {
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.querySelector('.stepper').style.display = 'none';
+                document.getElementById('success-panel').classList.add('show');
+                document.getElementById('success-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 800);
+        }
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', () => {
+            initSignature();
+            document.getElementById('nda-date').value = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        });
+    </script>
+</body>
+</html>

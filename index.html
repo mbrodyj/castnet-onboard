@@ -814,6 +814,185 @@
             margin-top: 10px;
         }
 
+        /* ===== STREAMNET BANNER ===== */
+        .streamnet-banner {
+            margin: 25px 0;
+            border: 2px solid var(--purple);
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, rgba(191,148,255,0.06) 0%, rgba(0,229,255,0.03) 50%, rgba(191,148,255,0.06) 100%);
+            overflow: hidden;
+            position: relative;
+        }
+        .streamnet-banner::before {
+            content: 'NETWORK';
+            position: absolute;
+            top: 12px;
+            right: -22px;
+            background: var(--purple);
+            color: var(--bg-deep);
+            font-family: var(--font-display);
+            font-size: 0.55em;
+            font-weight: 900;
+            letter-spacing: 2px;
+            padding: 4px 35px;
+            transform: rotate(35deg);
+            z-index: 2;
+        }
+        .streamnet-header {
+            padding: 22px 22px 0;
+        }
+        .streamnet-title {
+            font-family: var(--font-display);
+            font-size: 1.4em;
+            font-weight: 900;
+            letter-spacing: 4px;
+            color: var(--purple);
+            text-shadow: 0 0 15px rgba(191,148,255,0.4);
+        }
+        .streamnet-title span {
+            color: var(--text-dim);
+            font-size: 0.5em;
+            letter-spacing: 2px;
+            display: block;
+            margin-top: 4px;
+            font-weight: 400;
+            text-shadow: none;
+        }
+        .streamnet-tagline {
+            color: var(--text-dim);
+            font-size: 0.85em;
+            padding: 10px 22px 0;
+            line-height: 1.6;
+        }
+        .streamnet-tagline strong {
+            color: var(--purple);
+        }
+        .streamnet-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            padding: 18px 22px 22px;
+        }
+        .streamnet-feat {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 14px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(191,148,255,0.15);
+            transition: border-color 0.3s;
+        }
+        .streamnet-feat:hover {
+            border-color: rgba(191,148,255,0.4);
+        }
+        .streamnet-feat-icon {
+            font-size: 1.3em;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .streamnet-feat-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .streamnet-feat-name {
+            font-family: var(--font-display);
+            font-size: 0.65em;
+            letter-spacing: 1.5px;
+            color: var(--purple);
+            margin-bottom: 3px;
+        }
+        .streamnet-feat-desc {
+            color: var(--text-dim);
+            font-size: 0.78em;
+            line-height: 1.4;
+        }
+        .streamnet-platforms {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0 22px 20px;
+        }
+        .streamnet-platform-tag {
+            padding: 5px 14px;
+            background: rgba(191,148,255,0.08);
+            border: 1px solid rgba(191,148,255,0.25);
+            border-radius: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.7em;
+            color: var(--purple);
+            letter-spacing: 1px;
+        }
+
+        /* ===== YOUR TOOLS GRID ===== */
+        .tools-section {
+            margin: 25px 0;
+        }
+        .tools-section-header {
+            font-family: var(--font-display);
+            font-size: 0.85em;
+            letter-spacing: 3px;
+            color: var(--cyan);
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tools-section-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--cyan), transparent);
+            opacity: 0.3;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 15px;
+        }
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 18px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tool-card:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0,229,255,0.12);
+            transform: translateY(-2px);
+        }
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+        .tool-icon {
+            font-size: 2.2em;
+            margin-bottom: 12px;
+        }
+        .tool-name {
+            font-family: var(--font-display);
+            font-size: 0.75em;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 8px;
+        }
+        .tool-desc {
+            color: var(--text-dim);
+            font-size: 0.85em;
+            line-height: 1.55;
+        }
+
         /* ===== ELITE TIER ===== */
         .tier-card.elite {
             border-color: var(--gold);
@@ -981,6 +1160,93 @@
                         <div class="fc-feat-name">CATCH VERIFICATION</div>
                         <div class="fc-feat-desc">Video-backed catch logs with timestamps that sync to the official scoring system</div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== STREAMNET RESTREAMING NETWORK ===== -->
+        <div class="streamnet-banner">
+            <div class="streamnet-header">
+                <div class="streamnet-title">STREAMNET
+                    <span>THE COLLECTIVE RESTREAMING NETWORK</span>
+                </div>
+            </div>
+            <div class="streamnet-tagline">
+                When you join CastNET, your stream doesn't just go to one platform &mdash; <strong>it goes everywhere</strong>. StreamNET is the enterprise-grade restreaming backbone that pushes your content to every major platform simultaneously. One setup, every audience.
+            </div>
+            <div class="streamnet-platforms">
+                <span class="streamnet-platform-tag">YOUTUBE</span>
+                <span class="streamnet-platform-tag">FACEBOOK</span>
+                <span class="streamnet-platform-tag">TWITCH</span>
+                <span class="streamnet-platform-tag">KICK</span>
+                <span class="streamnet-platform-tag">X (TWITTER)</span>
+                <span class="streamnet-platform-tag">FISHING CHAOS</span>
+            </div>
+            <div class="streamnet-features">
+                <div class="streamnet-feat">
+                    <div class="streamnet-feat-icon">&#128752;</div>
+                    <div class="streamnet-feat-text">
+                        <div class="streamnet-feat-name">ONE STREAM, EVERYWHERE</div>
+                        <div class="streamnet-feat-desc">You hit "go live" once. We distribute to every platform simultaneously &mdash; no extra apps, no extra logins, no headaches.</div>
+                    </div>
+                </div>
+                <div class="streamnet-feat">
+                    <div class="streamnet-feat-icon">&#128101;</div>
+                    <div class="streamnet-feat-text">
+                        <div class="streamnet-feat-name">COLLECTIVE POWER</div>
+                        <div class="streamnet-feat-desc">The more anglers in the network, the bigger everyone's audience. Cross-promotion, raid trains, shared viewers &mdash; rising tide lifts all boats.</div>
+                    </div>
+                </div>
+                <div class="streamnet-feat">
+                    <div class="streamnet-feat-icon">&#127758;</div>
+                    <div class="streamnet-feat-text">
+                        <div class="streamnet-feat-name">NETWORK EFFECT</div>
+                        <div class="streamnet-feat-desc">You're not just hiring a service &mdash; you're joining a broadcast network. Your audience discovers other anglers. Their audience discovers you.</div>
+                    </div>
+                </div>
+                <div class="streamnet-feat">
+                    <div class="streamnet-feat-icon">&#128640;</div>
+                    <div class="streamnet-feat-text">
+                        <div class="streamnet-feat-name">ENTERPRISE INFRASTRUCTURE</div>
+                        <div class="streamnet-feat-desc">Multi-platform restreaming at this scale costs thousands to build yourself. StreamNET gives you that power included with your CastNET membership.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== YOUR TOOLS ===== -->
+        <div class="tools-section">
+            <div class="tools-section-header">YOUR TOOLS</div>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">&#128241;</div>
+                    <div class="tool-name">BRO CONTROL</div>
+                    <div class="tool-desc">Your phone becomes a streaming command center. Switch cameras, log fish catches, fire sponsor ads, and monitor your stream &mdash; all from one app on your phone.</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#127942;</div>
+                    <div class="tool-name">TOURNAMENT OVERLAYS</div>
+                    <div class="tool-desc">Custom branded overlays with your sponsors, live fish scoring, leaderboard integration, ticker text, and weather display. Looks like ESPN for fishing.</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#128202;</div>
+                    <div class="tool-name">CONTENT DASHBOARD</div>
+                    <div class="tool-desc">Compose social media posts, schedule content, track sponsor deliverables, and manage your content calendar. One dashboard for all your platforms.</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#128205;</div>
+                    <div class="tool-name">NAVCAST WAYPOINT VAULT</div>
+                    <div class="tool-desc">Secure cloud storage for your fishing waypoints. Import from Garmin, Lowrance, or Humminbird. Never lose a waypoint again. Export to any format.</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#129302;</div>
+                    <div class="tool-name">AI CONTENT ENGINE</div>
+                    <div class="tool-desc">AI-generated social posts, thumbnails, and highlight reels from your stream footage. We turn your raw fishing content into polished social media automatically.</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#128752;</div>
+                    <div class="tool-name">STREAMNET RESTREAMING</div>
+                    <div class="tool-desc">Simultaneous broadcast to YouTube, Facebook, Twitch, Kick, X, and partner networks. One stream, everywhere &mdash; no extra setup required.</div>
                 </div>
             </div>
         </div>
