@@ -1030,6 +1030,298 @@
             color: var(--red);
             margin-top: 10px;
         }
+
+        /* ===== BASIC TIER (DIMMED) ===== */
+        .tier-card.basic-dim {
+            opacity: 0.6;
+            border-color: #222;
+            background: rgba(0,0,0,0.15);
+        }
+        .tier-card.basic-dim:hover {
+            opacity: 0.8;
+            border-color: #444;
+        }
+        .tier-card.basic-dim .tier-name { color: #777; }
+        .tier-card.basic-dim .tier-features li::before { color: #555; }
+        .tier-card.basic-dim .tier-features li { color: #666; }
+        .tier-card.basic-dim .tier-price { color: #888; }
+        .tier-card.basic-dim.selected { opacity: 1; border-color: var(--neon); }
+        .tier-card.basic-dim .tier-warning {
+            margin-top: 12px;
+            padding: 8px 10px;
+            background: rgba(255,68,68,0.06);
+            border: 1px solid rgba(255,68,68,0.15);
+            border-radius: 6px;
+            font-size: 0.72em;
+            color: #aa5555;
+            line-height: 1.4;
+        }
+
+        /* ===== MANAGED TIER (HIGHLIGHTED) ===== */
+        .tier-card.managed-highlight {
+            border: 2px solid var(--neon);
+            box-shadow: 0 0 25px var(--neon-glow), 0 0 50px rgba(0,255,65,0.1);
+            background: rgba(0,255,65,0.03);
+            position: relative;
+        }
+        .tier-card.managed-highlight .launch-badge {
+            position: absolute;
+            top: -10px; right: 15px;
+            background: var(--red);
+            color: #fff;
+            font-family: var(--font-display);
+            font-size: 0.5em;
+            letter-spacing: 2px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+            animation: pulse-badge 2s infinite;
+        }
+        @keyframes pulse-badge {
+            0%, 100% { box-shadow: 0 0 5px rgba(255,68,68,0.3); }
+            50% { box-shadow: 0 0 15px rgba(255,68,68,0.6); }
+        }
+        .tier-card.managed-highlight .tier-price-old {
+            text-decoration: line-through;
+            color: #666;
+            font-size: 0.5em;
+            font-weight: 400;
+        }
+        .tier-card.managed-highlight .tier-price-launch {
+            display: inline-block;
+            background: rgba(255,68,68,0.12);
+            border: 1px solid rgba(255,68,68,0.3);
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.35em;
+            color: var(--red);
+            font-family: var(--font-display);
+            letter-spacing: 2px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+
+        /* ===== COST COMPARISON SECTION ===== */
+        .cost-comparison {
+            margin-bottom: 30px;
+        }
+        .cost-comparison-title {
+            font-family: var(--font-display);
+            font-size: 1.1em;
+            letter-spacing: 3px;
+            color: var(--neon);
+            text-align: center;
+            margin-bottom: 8px;
+            text-shadow: 0 0 15px var(--neon-glow);
+        }
+        .cost-comparison-subtitle {
+            text-align: center;
+            font-size: 0.85em;
+            color: var(--text-dim);
+            margin-bottom: 25px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .comparison-table th {
+            font-family: var(--font-display);
+            font-size: 0.65em;
+            letter-spacing: 2px;
+            padding: 12px 15px;
+            text-align: left;
+            background: rgba(0,255,65,0.05);
+            color: var(--cyan);
+            border-bottom: 1px solid var(--border);
+        }
+        .comparison-table td {
+            padding: 10px 15px;
+            font-size: 0.85em;
+            color: var(--text-dim);
+            border-bottom: 1px solid rgba(42,42,46,0.5);
+        }
+        .comparison-table tr:last-child td { border-bottom: none; }
+        .comparison-table .cost-traditional { color: var(--red); font-weight: 600; }
+        .comparison-table .cost-castnet { color: var(--neon); font-weight: 700; }
+        .comparison-table .cost-savings {
+            color: var(--neon);
+            font-weight: 900;
+            font-size: 1.1em;
+            text-shadow: 0 0 10px var(--neon-glow);
+        }
+        .comparison-table .row-highlight {
+            background: rgba(0,255,65,0.04);
+        }
+        .comparison-table .row-castnet {
+            background: rgba(0,255,65,0.06);
+            border-top: 2px solid var(--neon);
+        }
+        .comparison-table .row-savings {
+            background: rgba(0,255,65,0.08);
+        }
+
+        .savings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .savings-table th {
+            font-family: var(--font-display);
+            font-size: 0.6em;
+            letter-spacing: 2px;
+            padding: 12px 12px;
+            text-align: center;
+            background: rgba(0,255,65,0.05);
+            color: var(--cyan);
+            border-bottom: 1px solid var(--border);
+        }
+        .savings-table td {
+            padding: 12px 12px;
+            font-size: 0.85em;
+            color: var(--text-dim);
+            border-bottom: 1px solid rgba(42,42,46,0.5);
+            text-align: center;
+        }
+        .savings-table tr:last-child td { border-bottom: none; }
+        .savings-table .save-amount {
+            color: var(--neon);
+            font-weight: 900;
+            font-size: 1.3em;
+            text-shadow: 0 0 12px var(--neon-glow);
+        }
+        .savings-table .trad-cost { color: var(--red); font-weight: 600; }
+        .savings-table .cast-cost { color: var(--neon); font-weight: 600; }
+
+        .time-saved-section {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .time-saved-section h4 {
+            font-family: var(--font-display);
+            font-size: 0.75em;
+            letter-spacing: 2px;
+            color: var(--orange);
+            margin-bottom: 12px;
+        }
+        .time-saved-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 12px;
+        }
+        .time-saved-list li {
+            padding: 4px 0;
+            font-size: 0.85em;
+            color: var(--text-dim);
+        }
+        .time-saved-list li::before {
+            content: '\23F1 ';
+            margin-right: 6px;
+        }
+        .time-saved-list li.total-line {
+            color: var(--red);
+            font-weight: 700;
+            border-top: 1px solid var(--border);
+            padding-top: 8px;
+            margin-top: 4px;
+        }
+        .time-saved-list li.total-line::before { content: '\26A0 '; }
+        .time-saved-castnet {
+            font-size: 1em;
+            color: var(--neon);
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        .time-saved-annual {
+            font-size: 0.85em;
+            color: var(--text-dim);
+        }
+        .time-saved-annual strong {
+            color: var(--neon);
+            font-size: 1.2em;
+            text-shadow: 0 0 8px var(--neon-glow);
+        }
+
+        .kicker-box {
+            background: rgba(0,229,255,0.04);
+            border: 2px solid var(--cyan);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-bottom: 25px;
+            position: relative;
+            box-shadow: 0 0 25px rgba(0,229,255,0.1), 0 0 50px rgba(0,229,255,0.05);
+        }
+        .kicker-box h4 {
+            font-family: var(--font-display);
+            font-size: 0.85em;
+            letter-spacing: 3px;
+            color: var(--cyan);
+            margin-bottom: 14px;
+            text-shadow: 0 0 10px var(--cyan-glow);
+        }
+        .kicker-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .kicker-box ul li {
+            padding: 5px 0;
+            font-size: 0.88em;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+        .kicker-box ul li::before {
+            content: '\25B8 ';
+            color: var(--cyan);
+            margin-right: 6px;
+        }
+        .kicker-box ul li strong {
+            color: var(--text-bright);
+        }
+        .kicker-box .kicker-bottom {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0,229,255,0.2);
+            font-size: 0.82em;
+            color: var(--cyan);
+            font-weight: 600;
+        }
+
+        .section-divider {
+            text-align: center;
+            margin: 30px 0 20px;
+            position: relative;
+        }
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+        }
+        .section-divider span {
+            position: relative;
+            background: var(--bg-card);
+            padding: 0 15px;
+            font-family: var(--font-display);
+            font-size: 0.7em;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+        }
     </style>
 </head>
 
@@ -1285,66 +1577,209 @@
             <div class="section">
                 <div class="section-header"><span class="step-num">1</span> SELECT YOUR SERVICE TIER</div>
                 <div class="section-body">
+
+                    <!-- ===== COST COMPARISON: WHY THIS IS A NO-BRAINER ===== -->
+                    <div class="cost-comparison">
+                        <div class="cost-comparison-title">WHY THIS IS A NO-BRAINER</div>
+                        <div class="cost-comparison-subtitle">See what traditional production actually costs &mdash; then see what you pay with CastNET.</div>
+
+                        <!-- Part 1: Traditional vs CastNET Cost Comparison -->
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>TRADITIONAL PRODUCTION</th>
+                                    <th>DAILY COST</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Camera Operator</td>
+                                    <td class="cost-traditional">$800 &ndash; $1,200</td>
+                                </tr>
+                                <tr>
+                                    <td>Video Editor (post-production)</td>
+                                    <td class="cost-traditional">$500 &ndash; $1,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Social Media Manager (prorated)</td>
+                                    <td class="cost-traditional">$100 &ndash; $150</td>
+                                </tr>
+                                <tr>
+                                    <td>Thumbnail Designer</td>
+                                    <td class="cost-traditional">$30 &ndash; $50</td>
+                                </tr>
+                                <tr>
+                                    <td>Streaming Tech / Encoder</td>
+                                    <td class="cost-traditional">$500 &ndash; $800</td>
+                                </tr>
+                                <tr>
+                                    <td>Equipment Rental</td>
+                                    <td class="cost-traditional">$300 &ndash; $500</td>
+                                </tr>
+                                <tr class="row-highlight" style="border-top:2px solid var(--red);">
+                                    <td style="font-weight:700; color:var(--text-bright);">TOTAL (Traditional)</td>
+                                    <td class="cost-traditional" style="font-size:1.1em; font-weight:900;">$2,230 &ndash; $3,700/day</td>
+                                </tr>
+                                <tr class="row-castnet">
+                                    <td style="font-weight:700; color:var(--neon);">CastNET Managed</td>
+                                    <td class="cost-castnet" style="font-size:1.3em;">$200/day <span style="font-size:0.6em; color:var(--red); font-family:var(--font-display); letter-spacing:1px;">(LAUNCH)</span></td>
+                                </tr>
+                                <tr class="row-savings">
+                                    <td style="font-weight:900; color:var(--neon); font-size:1em;">YOU SAVE</td>
+                                    <td class="cost-savings" style="font-size:1.4em;">$2,030 &ndash; $3,500 <span style="display:block; font-size:0.5em; color:var(--text-dim); font-weight:400;">EVERY STREAM DAY</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Part 2: Savings Over Time -->
+                        <table class="savings-table">
+                            <thead>
+                                <tr>
+                                    <th>TIMEFRAME</th>
+                                    <th>TRADITIONAL COST</th>
+                                    <th>CASTNET COST</th>
+                                    <th>YOU SAVE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="color:var(--text-bright); font-weight:500;">6 Months</td>
+                                    <td class="trad-cost">$107,000+</td>
+                                    <td class="cast-cost">$9,600</td>
+                                    <td class="save-amount">$97,400+</td>
+                                </tr>
+                                <tr>
+                                    <td style="color:var(--text-bright); font-weight:500;">1 Year</td>
+                                    <td class="trad-cost">$214,000+</td>
+                                    <td class="cast-cost">$19,200</td>
+                                    <td class="save-amount">$194,800+</td>
+                                </tr>
+                                <tr>
+                                    <td style="color:var(--text-bright); font-weight:500;">2 Years</td>
+                                    <td class="trad-cost">$428,000+</td>
+                                    <td class="cast-cost">$38,400</td>
+                                    <td class="save-amount">$389,600+</td>
+                                </tr>
+                                <tr style="background:rgba(0,255,65,0.05);">
+                                    <td style="color:var(--neon); font-weight:700;">4 Years</td>
+                                    <td class="trad-cost" style="font-size:1em;">$856,000+</td>
+                                    <td class="cast-cost" style="font-size:1em;">$76,800</td>
+                                    <td class="save-amount" style="font-size:1.5em;">$779,200+</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="text-align:center; font-size:0.7em; color:var(--text-dim); margin-top:-18px; margin-bottom:20px;">Based on 2 tournaments/month (~8 stream days) at CastNET Managed rate of $200/day</div>
+
+                        <!-- Part 3: Time Saved -->
+                        <div class="time-saved-section">
+                            <h4>BUT FORGET THE MONEY FOR A SECOND. THINK ABOUT TIME.</h4>
+                            <p style="font-size:0.85em; color:var(--text-dim); margin-bottom:12px;">Traditional production per stream day:</p>
+                            <ul class="time-saved-list">
+                                <li>Camera guy dumps cards: 2 hours</li>
+                                <li>Organize footage: 1 hour</li>
+                                <li>Edit highlights: 6&ndash;8 hours</li>
+                                <li>Create thumbnails: 1 hour</li>
+                                <li>Write captions + post: 1&ndash;2 hours</li>
+                                <li class="total-line">TOTAL: 11&ndash;14 HOURS of someone's time PER STREAM DAY</li>
+                            </ul>
+                            <div class="time-saved-castnet">CastNET: 0 hours. You fish. We handle everything.</div>
+                            <div class="time-saved-annual">Over a year (48 stream days): <strong>528&ndash;672 hours saved = 22&ndash;28 FULL DAYS</strong> of someone's life back.</div>
+                        </div>
+
+                        <!-- Part 4: YouTube Ad Revenue Reality Check -->
+                        <div class="kicker-box">
+                            <h4>HERE'S THE KICKER</h4>
+                            <ul>
+                                <li>An 8-hour fishing stream generates <strong>$150&ndash;$300 in YouTube ad revenue alone</strong> (based on fishing content CPM of $5&ndash;$15)</li>
+                                <li>At CastNET's managed rate of $200/day... <strong>your stream essentially PAYS FOR ITSELF</strong></li>
+                                <li>Everything else &mdash; the clips, the social posts, the thumbnails, the growth &mdash; is <strong>pure bonus</strong></li>
+                                <li>Over a year, your streams could generate <strong>$7,200&ndash;$14,400</strong> in ad revenue</li>
+                                <li>Your CastNET investment: <strong>$9,600/year</strong> &rarr; Net cost as low as <strong>$0 after ad revenue</strong></li>
+                            </ul>
+                            <div class="kicker-bottom">The math doesn't lie. This pays for itself. Everything else is gravy.</div>
+                        </div>
+                    </div>
+
+                    <div class="section-divider"><span>CHOOSE YOUR TIER</span></div>
+
+                    <!-- ===== TIER GRID ===== -->
                     <div class="tier-grid">
-                        <div class="tier-card" data-tier="self-service" onclick="selectTier(this)">
-                            <div class="tier-name">SELF-SERVICE</div>
+                        <!-- BASIC (Self-Service) -->
+                        <div class="tier-card basic-dim" data-tier="basic" onclick="selectTier(this)">
+                            <div class="tier-name">BASIC</div>
                             <div class="tier-price">$100<span> / stream day</span></div>
                             <ul class="tier-features">
-                                <li>Phone control panel</li>
-                                <li>Camera switching</li>
-                                <li>Fish scoring + markers</li>
-                                <li>Auto-crash recovery</li>
-                                <li>Sponsor overlay system</li>
-                                <li>Remote stream restart</li>
-                                <li>Email + Telegram support</li>
+                                <li>Camera switching (1 additional operator)</li>
+                                <li>Basic auto-generated thumbnail</li>
+                                <li>Standard self-healing (economy mode)</li>
+                                <li>Email support only (48hr response)</li>
+                                <li>Single platform stream only</li>
+                                <li style="color:#664444;">NO highlight clips</li>
+                                <li style="color:#664444;">NO social media content</li>
+                                <li style="color:#664444;">NO sponsor overlay management</li>
                             </ul>
+                            <div class="tier-warning">&#9888; Economy infrastructure. Streams may experience extended downtime if cellular signal is unstable. Self-healing operates in low-priority queue.</div>
                         </div>
-                        <div class="tier-card popular" data-tier="managed" onclick="selectTier(this)">
+
+                        <!-- MANAGED (Main Offer) -->
+                        <div class="tier-card popular managed-highlight" data-tier="managed" onclick="selectTier(this)">
+                            <div class="launch-badge">LAUNCH PRICE</div>
                             <div class="tier-name">MANAGED</div>
-                            <div class="tier-price">$200<span> / stream day</span></div>
+                            <div class="tier-price"><span class="tier-price-old">$250</span> $200<span> / stream day</span> <span class="tier-price-launch">LAUNCH PRICE</span></div>
                             <ul class="tier-features">
-                                <li>Everything in Self-Service</li>
-                                <li>Live camera operator (Brody)</li>
-                                <li>Real-time ad insertion</li>
-                                <li>Highlight clip creation</li>
+                                <li>Everything in Basic, PLUS:</li>
+                                <li>Full managed production by Brody</li>
+                                <li>Instant self-healing (priority infra)</li>
+                                <li>Custom AI-generated thumbnails</li>
+                                <li>Highlight clip creation (best moments)</li>
+                                <li>Sponsor overlay management</li>
+                                <li>StreamNET multi-platform restreaming</li>
                                 <li>Monthly analytics report</li>
-                                <li>Priority support</li>
+                                <li>Priority support (text Brody directly)</li>
                             </ul>
                         </div>
+
+                        <!-- SEASON PASS -->
                         <div class="tier-card" data-tier="season" onclick="selectTier(this)">
                             <div class="tier-name">SEASON PASS</div>
-                            <div class="tier-price">$1,500<span> / month</span></div>
+                            <div class="tier-price">$2,000<span> / month</span></div>
                             <ul class="tier-features">
                                 <li>Everything in Managed</li>
                                 <li>Unlimited stream days</li>
-                                <li>Content creation pipeline</li>
-                                <li>Social media clips + posts</li>
-                                <li>Sponsor coordination</li>
-                                <li>Dedicated account manager</li>
+                                <li>Full content creation pipeline</li>
+                                <li>AI-generated social media posts + clips</li>
+                                <li>Content calendar + scheduling</li>
+                                <li>Sponsor coordination + tracking</li>
+                                <li>Dedicated account management</li>
+                                <li>NavCAST Waypoint Vault access</li>
                             </ul>
                         </div>
+
+                        <!-- ELITE (Full Agency) -->
                         <div class="tier-card elite" data-tier="elite" onclick="selectTier(this)">
                             <div class="tier-name">ELITE</div>
-                            <div class="tier-price">CUSTOM<span> / quoted</span></div>
+                            <div class="tier-price">$4,500<span> / month</span></div>
                             <ul class="tier-features">
                                 <li>Everything in Season Pass</li>
-                                <li>Custom hardware buildout</li>
-                                <li>Branded overlays + graphics</li>
-                                <li>AI-powered highlight reels</li>
-                                <li>Social media management</li>
+                                <li>Full social media management</li>
+                                <li>AI-powered highlight reels (weekly)</li>
                                 <li>Sponsor pitch deck creation</li>
-                                <li>Full content agency service</li>
-                                <li>1-on-1 strategy calls</li>
+                                <li>Branded custom overlay design</li>
+                                <li>1-on-1 strategy calls (weekly)</li>
+                                <li>Priority equipment upgrades</li>
+                                <li>NavCAST Waypoint Vault premium</li>
+                                <li>Content repurposing (all platforms)</li>
                             </ul>
+                            <div style="margin-top:10px; font-size:0.78em; color:var(--gold); font-style:italic; line-height:1.4;">"Your entire digital presence, handled."</div>
                         </div>
                     </div>
 
                     <div style="margin-top:15px; text-align:center;">
                         <div class="deposit-note">ALL TIERS REQUIRE A NON-REFUNDABLE DEPOSIT TO BEGIN</div>
                         <div style="margin-top:8px; color:var(--text-dim); font-size:0.82em;">
-                            Self-Service &amp; Managed: <strong style="color:var(--orange)">$500 deposit</strong> &nbsp;|&nbsp;
-                            Season Pass: <strong style="color:var(--orange)">$750 deposit</strong> &nbsp;|&nbsp;
-                            Elite: <strong style="color:var(--gold)">$1,500 deposit</strong>
+                            Basic &amp; Managed: <strong style="color:var(--orange)">$500 deposit</strong> &nbsp;|&nbsp;
+                            Season Pass: <strong style="color:var(--orange)">$1,000 deposit</strong> &nbsp;|&nbsp;
+                            Elite: <strong style="color:var(--gold)">$2,000 deposit</strong>
                         </div>
                         <div style="margin-top:4px; color:var(--text-dim); font-size:0.75em;">Deposit covers equipment configuration, software installation, testing &amp; onboarding. Applied to first invoice.</div>
                     </div>
@@ -1699,10 +2134,10 @@
 
         // ===== DEPOSIT AMOUNTS =====
         const DEPOSITS = {
-            'self-service': 500,
+            'basic': 500,
             'managed': 500,
-            'season': 750,
-            'elite': 1500
+            'season': 1000,
+            'elite': 2000
         };
 
         // ===== STORY TOGGLE =====
@@ -1744,7 +2179,7 @@
             if (n === 4) {
                 const name = document.getElementById('f-name').value || '[Client Name]';
                 document.getElementById('ag-client-name').textContent = name;
-                const tierNames = { 'self-service': 'Self-Service ($100/day)', 'managed': 'Managed ($200/day)', 'season': 'Season Pass ($1,500/mo)', 'elite': 'Elite (Custom Quote)' };
+                const tierNames = { 'basic': 'Basic ($100/day)', 'managed': 'Managed ($200/day - Launch Price)', 'season': 'Season Pass ($2,000/mo)', 'elite': 'Elite ($4,500/mo)' };
                 document.getElementById('ag-tier-name').textContent = tierNames[selectedTier] || '[Tier]';
                 document.getElementById('f-date').value = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
             }
