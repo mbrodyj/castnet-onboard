@@ -1198,39 +1198,80 @@
             opacity: 0.5;
         }
 
-        /* ===== COST COMPARISON SECTION ===== */
-        .cost-compare-section {
-            background: linear-gradient(180deg, rgba(0,255,65,0.03) 0%, rgba(0,0,0,0.4) 50%, rgba(0,229,255,0.03) 100%);
-            border: 1px solid rgba(0,255,65,0.2);
-            border-radius: var(--radius);
-            padding: 50px 30px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 30px;
+        /* ===== COST COMPARISON — COMPACT ACCORDION ===== */
+        .cost-oneliner {
+            text-align: center;
+            margin-bottom: 14px;
+            padding: 16px 8px;
         }
-        .cost-compare-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon), transparent);
-        }
-        .cost-title {
+        .cost-oneliner-text {
             font-family: var(--font-display);
-            font-size: clamp(1.2em, 3vw, 1.8em);
-            letter-spacing: 4px;
-            color: var(--neon);
-            text-align: center;
-            text-shadow: 0 0 20px var(--neon-glow);
-            margin-bottom: 8px;
-        }
-        .cost-subtitle {
-            text-align: center;
-            font-family: var(--font-mono);
-            font-size: 0.75em;
+            font-size: clamp(0.9em, 3vw, 1.3em);
             letter-spacing: 2px;
+            line-height: 1.5;
+        }
+        .cost-oneliner .trad { color: var(--red); text-shadow: 0 0 8px var(--red-glow); }
+        .cost-oneliner .arrow { color: var(--text-dim); margin: 0 8px; }
+        .cost-oneliner .cast { color: var(--neon); text-shadow: 0 0 10px var(--neon-glow); }
+
+        .cost-accordion-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0,0,0,0.45);
+            border: 1px solid rgba(0,229,255,0.25);
+            border-radius: 8px;
+            padding: 14px 20px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s;
+            margin-bottom: 0;
+        }
+        .cost-accordion-bar:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 12px rgba(0,229,255,0.15);
+        }
+        .cost-accordion-label {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .cost-accordion-title {
+            font-family: var(--font-mono);
+            font-size: 0.78em;
+            letter-spacing: 1px;
+            color: var(--cyan);
+        }
+        .cost-accordion-hint {
+            font-size: 0.7em;
             color: var(--text-dim);
-            margin-bottom: 35px;
+            font-style: italic;
+        }
+        .cost-accordion-arrow {
+            font-size: 1em;
+            color: var(--cyan);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 12px;
+        }
+        .cost-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s ease;
+        }
+        .cost-accordion-inner {
+            padding: 25px 0 5px;
+        }
+
+        /* Tables inside accordion (kept from original) */
+        .cost-compare-section {
+            background: none;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            position: relative;
+            overflow: visible;
+            margin-bottom: 0;
         }
         .cost-part-label {
             font-family: var(--font-display);
@@ -1578,6 +1619,109 @@
             .proof-stats { grid-template-columns: 1fr 1fr; }
             .container { padding: 0 12px 60px; }
         }
+
+        /* ===== ANGLER NAME TICKER ===== */
+        .ticker-section {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%);
+            border-top: 1px solid rgba(0,255,65,0.15);
+            border-bottom: 1px solid rgba(0,255,65,0.15);
+            padding: 22px 0 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .ticker-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-glow), transparent);
+        }
+        .ticker-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-glow), transparent);
+        }
+        .ticker-label {
+            font-family: var(--font-mono);
+            font-size: 0.6em;
+            letter-spacing: 4px;
+            color: var(--text-dim);
+            text-align: center;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .ticker-track {
+            position: relative;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .ticker-name {
+            position: absolute;
+            font-family: var(--font-display);
+            font-size: clamp(1.2em, 4vw, 1.8em);
+            font-weight: 900;
+            letter-spacing: 6px;
+            color: var(--neon);
+            text-shadow: 0 0 10px var(--neon-glow), 0 0 25px var(--neon-glow), 0 0 50px rgba(0,255,65,0.12);
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(60px);
+            animation: tickerSlide 1.8s ease-in-out infinite;
+        }
+        @keyframes tickerSlide {
+            0% { opacity: 0; transform: translateX(60px); }
+            12% { opacity: 1; transform: translateX(0); }
+            82% { opacity: 1; transform: translateX(0); }
+            100% { opacity: 0; transform: translateX(-60px); }
+        }
+        .ticker-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .ticker-badge {
+            font-family: var(--font-mono);
+            font-size: 0.55em;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            padding: 3px 12px;
+            border: 1px solid rgba(0,229,255,0.25);
+            border-radius: 4px;
+            background: rgba(0,229,255,0.05);
+            opacity: 0;
+            animation: badgePulse 7.2s ease-in-out infinite;
+        }
+        .ticker-badge:nth-child(1) { animation-delay: 0s; }
+        .ticker-badge:nth-child(2) { animation-delay: 1.8s; }
+        .ticker-badge:nth-child(3) { animation-delay: 3.6s; }
+        .ticker-badge:nth-child(4) { animation-delay: 5.4s; }
+        @keyframes badgePulse {
+            0% { opacity: 0.2; }
+            6% { opacity: 1; box-shadow: 0 0 8px var(--cyan-glow); border-color: var(--cyan); }
+            19% { opacity: 1; box-shadow: 0 0 8px var(--cyan-glow); border-color: var(--cyan); }
+            25% { opacity: 0.2; box-shadow: none; border-color: rgba(0,229,255,0.25); }
+            100% { opacity: 0.2; }
+        }
+        .stats-proof-line {
+            text-align: center;
+            font-size: 0.78em;
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin: 20px auto 0;
+            max-width: 600px;
+            font-style: italic;
+            opacity: 0.7;
+        }
+
     </style>
 </head>
 
@@ -1650,6 +1794,20 @@
             <div class="hero-badge">IN PARTNERSHIP WITH FISHING CHAOS</div>
             <div class="hero-cta">
                 <a href="#onboarding" class="btn btn-primary btn-lg" onclick="scrollToForm(event)">JOIN THE COLLECTIVE</a>
+            </div>
+        </div>
+
+        <!-- ===== HERO ANGLER TICKER ===== -->
+        <div class="ticker-section">
+            <div class="ticker-label">// THE ROSTER</div>
+            <div class="ticker-track" id="tickerTrackHero">
+                <div class="ticker-name" id="tickerNameHero">SCOTT MARTIN</div>
+            </div>
+            <div class="ticker-badges">
+                <span class="ticker-badge">BASSMASTER ELITE</span>
+                <span class="ticker-badge">BASS PRO TOUR</span>
+                <span class="ticker-badge">NPFL</span>
+                <span class="ticker-badge">MLF</span>
             </div>
         </div>
 
@@ -1862,113 +2020,134 @@
 
         <div class="section-divider"></div>
 
-        <!-- ===== 7a. COST COMPARISON ===== -->
-        <div class="cost-compare-section">
-            <div class="cost-title">THE MATH DOESN'T LIE</div>
-            <div class="cost-subtitle">WHAT YOU'D PAY ANYWHERE ELSE VS. WHAT YOU PAY WITH CASTNET</div>
-
-            <!-- Part 1: Daily Cost Comparison -->
-            <div class="cost-part-label">DAILY COST COMPARISON &mdash; PER STREAM DAY</div>
-            <table class="cost-table">
-                <thead>
-                    <tr><th>LINE ITEM</th><th>TRADITIONAL COST</th></tr>
-                </thead>
-                <tbody>
-                    <tr class="cost-red"><td>Camera Operator</td><td>$800 &ndash; $1,200</td></tr>
-                    <tr class="cost-red"><td>Video Editor</td><td>$500 &ndash; $1,000</td></tr>
-                    <tr class="cost-red"><td>Social Media Manager (prorated)</td><td>$100 &ndash; $150</td></tr>
-                    <tr class="cost-red"><td>Thumbnails &amp; Graphics</td><td>$30 &ndash; $50</td></tr>
-                    <tr class="cost-red"><td>Streaming Technician</td><td>$500 &ndash; $800</td></tr>
-                    <tr class="cost-red"><td>Equipment Rental</td><td>$300 &ndash; $500</td></tr>
-                    <tr class="cost-total-trad"><td><strong>TOTAL &mdash; Traditional</strong></td><td><strong>$2,230 &ndash; $3,700 / day</strong></td></tr>
-                    <tr class="cost-total-cast"><td><strong>TOTAL &mdash; CastNET Managed</strong></td><td><strong>$200 / day (launch price)</strong></td></tr>
-                    <tr class="cost-savings"><td><strong>YOU SAVE</strong></td><td><strong>$2,030 &ndash; $3,500 EVERY SINGLE DAY</strong></td></tr>
-                </tbody>
-            </table>
-
-            <div class="cost-savings-callout">
-                <div class="cost-savings-number">UP TO 95% CHEAPER</div>
-                <div class="cost-savings-label">THAN HIRING A TRADITIONAL PRODUCTION TEAM</div>
-            </div>
-
-            <!-- Part 2: Over Time -->
-            <div class="cost-part-label">OVER TIME &mdash; 8 STREAM DAYS / MONTH</div>
-            <table class="overtime-table">
-                <thead>
-                    <tr><th>PERIOD</th><th>TRADITIONAL</th><th>CASTNET</th><th>YOU SAVE</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>6 MONTHS</td>
-                        <td class="ot-trad">$107,000+</td>
-                        <td class="ot-cast">$9,600</td>
-                        <td class="ot-saved">$97,400+</td>
-                    </tr>
-                    <tr>
-                        <td>1 YEAR</td>
-                        <td class="ot-trad">$214,000+</td>
-                        <td class="ot-cast">$19,200</td>
-                        <td class="ot-saved">$194,800+</td>
-                    </tr>
-                    <tr>
-                        <td>2 YEARS</td>
-                        <td class="ot-trad">$428,000+</td>
-                        <td class="ot-cast">$38,400</td>
-                        <td class="ot-saved">$389,600+</td>
-                    </tr>
-                    <tr>
-                        <td>4 YEARS</td>
-                        <td class="ot-trad">$856,000+</td>
-                        <td class="ot-cast">$76,800</td>
-                        <td class="ot-saved">$779,200+</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Part 3: Time Saved -->
-            <div class="cost-part-label">TIME SAVED &mdash; YOUR MOST VALUABLE RESOURCE</div>
-            <div class="time-saved-box">
-                <div class="time-saved-grid">
-                    <div class="time-saved-card trad">
-                        <h4>TRADITIONAL &mdash; PER STREAM DAY</h4>
-                        <ul>
-                            <li>Dump &amp; transfer cards: 2 hrs</li>
-                            <li>Organize &amp; sort footage: 1 hr</li>
-                            <li>Edit highlights &amp; clips: 6-8 hrs</li>
-                            <li>Create thumbnails: 1 hr</li>
-                            <li>Post &amp; schedule content: 1-2 hrs</li>
-                        </ul>
-                        <div class="big-number">11-14 HOURS</div>
-                    </div>
-                    <div class="time-saved-card cast">
-                        <h4>CASTNET &mdash; PER STREAM DAY</h4>
-                        <ul>
-                            <li>You fish.</li>
-                            <li>That's it.</li>
-                            <li>We handle everything.</li>
-                            <li>Clips, posts, thumbnails &mdash; done.</li>
-                            <li>Content delivered to your inbox.</li>
-                        </ul>
-                        <div class="big-number">0 HOURS</div>
-                    </div>
-                </div>
-                <div class="time-saved-year">
-                    <div class="big-stat">22-28 FULL DAYS</div>
-                    <div class="stat-label">OF YOUR LIFE BACK EVERY YEAR &mdash; 528 TO 672 HOURS SAVED</div>
+        <!-- ===== 7a. COST COMPARISON — COMPACT ACCORDION ===== -->
+        <div class="container-narrow">
+            <div class="cost-oneliner">
+                <div class="cost-oneliner-text">
+                    <span class="trad">Traditional: $3,000/day</span>
+                    <span class="arrow">&rarr;</span>
+                    <span class="cast">CastNET: $200/day</span>
                 </div>
             </div>
 
-            <!-- Part 4: The Kicker -->
-            <div class="kicker-box">
-                <div class="kicker-label">HERE'S THE KICKER</div>
-                <div class="kicker-text">
-                    An 8-hour livestream on YouTube generates <strong>$150 &ndash; $300 in ad revenue</strong> (fishing CPM: $5-$15 per 1,000 views). At $200/day for CastNET Managed, your stream essentially <strong>pays for itself</strong>.
+            <div class="cost-accordion-bar" onclick="toggleCostBreakdown()">
+                <div class="cost-accordion-label">
+                    <div class="cost-accordion-title">SEE THE REAL NUMBERS &mdash; Traditional production vs CastNET</div>
+                    <div class="cost-accordion-hint">Hint: Traditional production costs $2,200&ndash;$3,700 per stream day. We charge $200.</div>
                 </div>
-                <div class="kicker-highlight">
-                    Year of streams: <span class="cyan">$7,200 &ndash; $14,400</span> ad revenue vs <span class="cyan">$9,600</span> CastNET cost
+                <div class="cost-accordion-arrow" id="cost-breakdown-arrow">&#9654;</div>
+            </div>
+
+            <div class="cost-accordion-content" id="cost-breakdown-content" style="max-height:0px;">
+                <div class="cost-accordion-inner">
+                    <div class="cost-compare-section">
+
+                        <!-- Part 1: Daily Cost Comparison -->
+                        <div class="cost-part-label">DAILY COST COMPARISON &mdash; PER STREAM DAY</div>
+                        <table class="cost-table">
+                            <thead>
+                                <tr><th>LINE ITEM</th><th>TRADITIONAL COST</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="cost-red"><td>Camera Operator</td><td>$800 &ndash; $1,200</td></tr>
+                                <tr class="cost-red"><td>Video Editor</td><td>$500 &ndash; $1,000</td></tr>
+                                <tr class="cost-red"><td>Social Media Manager (prorated)</td><td>$100 &ndash; $150</td></tr>
+                                <tr class="cost-red"><td>Thumbnails &amp; Graphics</td><td>$30 &ndash; $50</td></tr>
+                                <tr class="cost-red"><td>Streaming Technician</td><td>$500 &ndash; $800</td></tr>
+                                <tr class="cost-red"><td>Equipment Rental</td><td>$300 &ndash; $500</td></tr>
+                                <tr class="cost-total-trad"><td><strong>TOTAL &mdash; Traditional</strong></td><td><strong>$2,230 &ndash; $3,700 / day</strong></td></tr>
+                                <tr class="cost-total-cast"><td><strong>TOTAL &mdash; CastNET Managed</strong></td><td><strong>$200 / day (launch price)</strong></td></tr>
+                                <tr class="cost-savings"><td><strong>YOU SAVE</strong></td><td><strong>$2,030 &ndash; $3,500 EVERY SINGLE DAY</strong></td></tr>
+                            </tbody>
+                        </table>
+
+                        <div class="cost-savings-callout">
+                            <div class="cost-savings-number">UP TO 95% CHEAPER</div>
+                            <div class="cost-savings-label">THAN HIRING A TRADITIONAL PRODUCTION TEAM</div>
+                        </div>
+
+                        <!-- Part 2: Over Time -->
+                        <div class="cost-part-label">OVER TIME &mdash; 8 STREAM DAYS / MONTH</div>
+                        <table class="overtime-table">
+                            <thead>
+                                <tr><th>PERIOD</th><th>TRADITIONAL</th><th>CASTNET</th><th>YOU SAVE</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>6 MONTHS</td>
+                                    <td class="ot-trad">$107,000+</td>
+                                    <td class="ot-cast">$9,600</td>
+                                    <td class="ot-saved">$97,400+</td>
+                                </tr>
+                                <tr>
+                                    <td>1 YEAR</td>
+                                    <td class="ot-trad">$214,000+</td>
+                                    <td class="ot-cast">$19,200</td>
+                                    <td class="ot-saved">$194,800+</td>
+                                </tr>
+                                <tr>
+                                    <td>2 YEARS</td>
+                                    <td class="ot-trad">$428,000+</td>
+                                    <td class="ot-cast">$38,400</td>
+                                    <td class="ot-saved">$389,600+</td>
+                                </tr>
+                                <tr>
+                                    <td>4 YEARS</td>
+                                    <td class="ot-trad">$856,000+</td>
+                                    <td class="ot-cast">$76,800</td>
+                                    <td class="ot-saved">$779,200+</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Part 3: Time Saved -->
+                        <div class="cost-part-label">TIME SAVED &mdash; YOUR MOST VALUABLE RESOURCE</div>
+                        <div class="time-saved-box">
+                            <div class="time-saved-grid">
+                                <div class="time-saved-card trad">
+                                    <h4>TRADITIONAL &mdash; PER STREAM DAY</h4>
+                                    <ul>
+                                        <li>Dump &amp; transfer cards: 2 hrs</li>
+                                        <li>Organize &amp; sort footage: 1 hr</li>
+                                        <li>Edit highlights &amp; clips: 6-8 hrs</li>
+                                        <li>Create thumbnails: 1 hr</li>
+                                        <li>Post &amp; schedule content: 1-2 hrs</li>
+                                    </ul>
+                                    <div class="big-number">11-14 HOURS</div>
+                                </div>
+                                <div class="time-saved-card cast">
+                                    <h4>CASTNET &mdash; PER STREAM DAY</h4>
+                                    <ul>
+                                        <li>You fish.</li>
+                                        <li>That's it.</li>
+                                        <li>We handle everything.</li>
+                                        <li>Clips, posts, thumbnails &mdash; done.</li>
+                                        <li>Content delivered to your inbox.</li>
+                                    </ul>
+                                    <div class="big-number">0 HOURS</div>
+                                </div>
+                            </div>
+                            <div class="time-saved-year">
+                                <div class="big-stat">22-28 FULL DAYS</div>
+                                <div class="stat-label">OF YOUR LIFE BACK EVERY YEAR &mdash; 528 TO 672 HOURS SAVED</div>
+                            </div>
+                        </div>
+
+                        <!-- Part 4: The Kicker -->
+                        <div class="kicker-box">
+                            <div class="kicker-label">HERE'S THE KICKER</div>
+                            <div class="kicker-text">
+                                An 8-hour livestream on YouTube generates <strong>$150 &ndash; $300 in ad revenue</strong> (fishing CPM: $5-$15 per 1,000 views). At $200/day for CastNET Managed, your stream essentially <strong>pays for itself</strong>.
+                            </div>
+                            <div class="kicker-highlight">
+                                Year of streams: <span class="cyan">$7,200 &ndash; $14,400</span> ad revenue vs <span class="cyan">$9,600</span> CastNET cost
+                            </div>
+                            <div class="kicker-zero">NET COST: AS LOW AS $0</div>
+                            <div class="kicker-sub">AFTER AD REVENUE. EVERYTHING ELSE IS BONUS.</div>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="kicker-zero">NET COST: AS LOW AS $0</div>
-                <div class="kicker-sub">AFTER AD REVENUE. EVERYTHING ELSE IS BONUS.</div>
             </div>
         </div>
 
@@ -2057,24 +2236,44 @@
             <div class="section-title" style="margin-bottom:5px;">THE NETWORK IS GROWING</div>
             <div style="font-family:var(--font-mono); font-size:0.75em; letter-spacing:2px; color:var(--text-dim);">BE PART OF SOMETHING BIGGER THAN YOURSELF</div>
 
+            <!-- ANGLER NAME TICKER -->
+            <div class="ticker-section" style="width:100%; margin-left:0; margin-top:25px; margin-bottom:5px; border-radius:8px;">
+                <div class="ticker-label">// THE ROSTER</div>
+                <div class="ticker-track" id="tickerTrack2">
+                    <div class="ticker-name" id="tickerName2">SCOTT MARTIN</div>
+                </div>
+                <div class="ticker-badges">
+                    <span class="ticker-badge">BASSMASTER ELITE</span>
+                    <span class="ticker-badge">BASS PRO TOUR</span>
+                    <span class="ticker-badge">NPFL</span>
+                    <span class="ticker-badge">MLF</span>
+                </div>
+            </div>
+
             <div class="proof-stats">
                 <div class="proof-stat">
-                    <div class="proof-stat-number">20+</div>
-                    <div class="proof-stat-label">ANGLERS &amp; GROWING</div>
+                    <div class="proof-stat-number">8</div>
+                    <div class="proof-stat-label">PRO ANGLERS &amp; GROWING</div>
                 </div>
                 <div class="proof-stat">
                     <div class="proof-stat-number">50+</div>
-                    <div class="proof-stat-label">TOURNAMENTS STREAMED</div>
+                    <div class="proof-stat-label">TOURNAMENT STREAMS PRODUCED</div>
                 </div>
                 <div class="proof-stat">
-                    <div class="proof-stat-number">500+</div>
-                    <div class="proof-stat-label">HOURS LIVE PER MONTH</div>
+                    <div class="proof-stat-number" style="font-size:1.6em;">MILLIONS</div>
+                    <div class="proof-stat-label">OF HOURS WATCHED</div>
                 </div>
                 <div class="proof-stat">
                     <div class="proof-stat-number">6</div>
                     <div class="proof-stat-label">PLATFORMS SIMULTANEOUSLY</div>
                 </div>
+                <div class="proof-stat">
+                    <div class="proof-stat-number">$20K+</div>
+                    <div class="proof-stat-label">AD REVENUE PER STREAM</div>
+                </div>
             </div>
+
+            <p class="stats-proof-line">Produced streams for Bassmaster Elite Series and Bass Pro Tour anglers with individual streams exceeding 100,000 views and $20,000 in YouTube ad revenue alone.</p>
 
             <div class="proof-testimonials">
                 <div class="testimonial-slot">
@@ -2472,6 +2671,43 @@
     </div>
 
     <script>
+        // ===== COST BREAKDOWN ACCORDION =====
+        function toggleCostBreakdown() {
+            var content = document.getElementById('cost-breakdown-content');
+            var arrow = document.getElementById('cost-breakdown-arrow');
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                arrow.style.transform = 'rotate(90deg)';
+            }
+        }
+
+        // ===== ANGLER NAME TICKER =====
+        (function() {
+            const names = [
+                'SCOTT MARTIN', 'KYLE PATRICK', 'LOGAN PARKS', 'BYRON VELVICK',
+                'HILARY MARTIN', 'RICKEY MORRIS', 'NICK BROWN', 'JOHN HUNTER'
+            ];
+            function startTicker(elId) {
+                let idx = 0;
+                const el = document.getElementById(elId);
+                if (!el) return;
+                function cycleName() {
+                    el.style.animation = 'none';
+                    el.offsetHeight;
+                    el.textContent = names[idx];
+                    el.style.animation = 'tickerSlide 1.8s ease-in-out';
+                    idx = (idx + 1) % names.length;
+                }
+                cycleName();
+                setInterval(cycleName, 1800);
+            }
+            startTicker('tickerNameHero');
+            startTicker('tickerName2');
+        })();
+
         // ===== STATE =====
         let currentPage = 1;
         let selectedTier = null;
