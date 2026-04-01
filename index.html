@@ -814,185 +814,6 @@
             margin-top: 10px;
         }
 
-        /* ===== STREAMNET BANNER ===== */
-        .streamnet-banner {
-            margin: 25px 0;
-            border: 2px solid var(--purple);
-            border-radius: var(--radius);
-            background: linear-gradient(135deg, rgba(191,148,255,0.06) 0%, rgba(0,229,255,0.03) 50%, rgba(191,148,255,0.06) 100%);
-            overflow: hidden;
-            position: relative;
-        }
-        .streamnet-banner::before {
-            content: 'NETWORK';
-            position: absolute;
-            top: 12px;
-            right: -22px;
-            background: var(--purple);
-            color: var(--bg-deep);
-            font-family: var(--font-display);
-            font-size: 0.55em;
-            font-weight: 900;
-            letter-spacing: 2px;
-            padding: 4px 35px;
-            transform: rotate(35deg);
-            z-index: 2;
-        }
-        .streamnet-header {
-            padding: 22px 22px 0;
-        }
-        .streamnet-title {
-            font-family: var(--font-display);
-            font-size: 1.4em;
-            font-weight: 900;
-            letter-spacing: 4px;
-            color: var(--purple);
-            text-shadow: 0 0 15px rgba(191,148,255,0.4);
-        }
-        .streamnet-title span {
-            color: var(--text-dim);
-            font-size: 0.5em;
-            letter-spacing: 2px;
-            display: block;
-            margin-top: 4px;
-            font-weight: 400;
-            text-shadow: none;
-        }
-        .streamnet-tagline {
-            color: var(--text-dim);
-            font-size: 0.85em;
-            padding: 10px 22px 0;
-            line-height: 1.6;
-        }
-        .streamnet-tagline strong {
-            color: var(--purple);
-        }
-        .streamnet-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            padding: 18px 22px 22px;
-        }
-        .streamnet-feat {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 12px 14px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-            border: 1px solid rgba(191,148,255,0.15);
-            transition: border-color 0.3s;
-        }
-        .streamnet-feat:hover {
-            border-color: rgba(191,148,255,0.4);
-        }
-        .streamnet-feat-icon {
-            font-size: 1.3em;
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
-        .streamnet-feat-text {
-            display: flex;
-            flex-direction: column;
-        }
-        .streamnet-feat-name {
-            font-family: var(--font-display);
-            font-size: 0.65em;
-            letter-spacing: 1.5px;
-            color: var(--purple);
-            margin-bottom: 3px;
-        }
-        .streamnet-feat-desc {
-            color: var(--text-dim);
-            font-size: 0.78em;
-            line-height: 1.4;
-        }
-        .streamnet-platforms {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            padding: 0 22px 20px;
-        }
-        .streamnet-platform-tag {
-            padding: 5px 14px;
-            background: rgba(191,148,255,0.08);
-            border: 1px solid rgba(191,148,255,0.25);
-            border-radius: 20px;
-            font-family: var(--font-mono);
-            font-size: 0.7em;
-            color: var(--purple);
-            letter-spacing: 1px;
-        }
-
-        /* ===== YOUR TOOLS GRID ===== */
-        .tools-section {
-            margin: 25px 0;
-        }
-        .tools-section-header {
-            font-family: var(--font-display);
-            font-size: 0.85em;
-            letter-spacing: 3px;
-            color: var(--cyan);
-            padding: 15px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .tools-section-header::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, var(--cyan), transparent);
-            opacity: 0.3;
-        }
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 15px;
-        }
-        .tool-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 22px 18px;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--cyan), var(--purple));
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .tool-card:hover {
-            border-color: var(--cyan);
-            box-shadow: 0 0 20px rgba(0,229,255,0.12);
-            transform: translateY(-2px);
-        }
-        .tool-card:hover::before {
-            opacity: 1;
-        }
-        .tool-icon {
-            font-size: 2.2em;
-            margin-bottom: 12px;
-        }
-        .tool-name {
-            font-family: var(--font-display);
-            font-size: 0.75em;
-            letter-spacing: 2px;
-            color: var(--cyan);
-            margin-bottom: 8px;
-        }
-        .tool-desc {
-            color: var(--text-dim);
-            font-size: 0.85em;
-            line-height: 1.55;
-        }
-
         /* ===== ELITE TIER ===== */
         .tier-card.elite {
             border-color: var(--gold);
@@ -1030,474 +851,6 @@
             color: var(--red);
             margin-top: 10px;
         }
-
-        /* ===== BASIC TIER (DIMMED) ===== */
-        .tier-card.basic-dim {
-            opacity: 0.6;
-            border-color: #222;
-            background: rgba(0,0,0,0.15);
-        }
-        .tier-card.basic-dim:hover {
-            opacity: 0.8;
-            border-color: #444;
-        }
-        .tier-card.basic-dim .tier-name { color: #777; }
-        .tier-card.basic-dim .tier-features li::before { color: #555; }
-        .tier-card.basic-dim .tier-features li { color: #666; }
-        .tier-card.basic-dim .tier-price { color: #888; }
-        .tier-card.basic-dim.selected { opacity: 1; border-color: var(--neon); }
-        .tier-card.basic-dim .tier-warning {
-            margin-top: 12px;
-            padding: 8px 10px;
-            background: rgba(255,68,68,0.06);
-            border: 1px solid rgba(255,68,68,0.15);
-            border-radius: 6px;
-            font-size: 0.72em;
-            color: #aa5555;
-            line-height: 1.4;
-        }
-
-        /* ===== MANAGED TIER (HIGHLIGHTED) ===== */
-        .tier-card.managed-highlight {
-            border: 2px solid var(--neon);
-            box-shadow: 0 0 25px var(--neon-glow), 0 0 50px rgba(0,255,65,0.1);
-            background: rgba(0,255,65,0.03);
-            position: relative;
-        }
-        .tier-card.managed-highlight .launch-badge {
-            position: absolute;
-            top: -10px; right: 15px;
-            background: var(--red);
-            color: #fff;
-            font-family: var(--font-display);
-            font-size: 0.5em;
-            letter-spacing: 2px;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-weight: 700;
-            animation: pulse-badge 2s infinite;
-        }
-        @keyframes pulse-badge {
-            0%, 100% { box-shadow: 0 0 5px rgba(255,68,68,0.3); }
-            50% { box-shadow: 0 0 15px rgba(255,68,68,0.6); }
-        }
-        .tier-card.managed-highlight .tier-price-old {
-            text-decoration: line-through;
-            color: #666;
-            font-size: 0.5em;
-            font-weight: 400;
-        }
-        .tier-card.managed-highlight .tier-price-launch {
-            display: inline-block;
-            background: rgba(255,68,68,0.12);
-            border: 1px solid rgba(255,68,68,0.3);
-            border-radius: 4px;
-            padding: 2px 8px;
-            font-size: 0.35em;
-            color: var(--red);
-            font-family: var(--font-display);
-            letter-spacing: 2px;
-            margin-left: 6px;
-            vertical-align: middle;
-        }
-
-        /* ===== COST COMPARISON — COMPACT ACCORDION ===== */
-        .cost-oneliner {
-            text-align: center;
-            margin-bottom: 14px;
-            padding: 12px 8px;
-        }
-        .cost-oneliner-text {
-            font-family: var(--font-display);
-            font-size: clamp(0.85em, 2.5vw, 1.15em);
-            letter-spacing: 2px;
-            line-height: 1.5;
-        }
-        .cost-oneliner .trad { color: var(--red); text-shadow: 0 0 8px var(--red-glow); }
-        .cost-oneliner .arrow { color: var(--text-dim); margin: 0 6px; }
-        .cost-oneliner .cast { color: var(--neon); text-shadow: 0 0 10px var(--neon-glow); }
-
-        .cost-accordion-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(0,0,0,0.45);
-            border: 1px solid rgba(0,229,255,0.25);
-            border-radius: 8px;
-            padding: 14px 18px;
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.3s;
-            margin-bottom: 0;
-        }
-        .cost-accordion-bar:hover {
-            border-color: var(--cyan);
-            box-shadow: 0 0 12px rgba(0,229,255,0.15);
-        }
-        .cost-accordion-label {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-        .cost-accordion-title {
-            font-family: var(--font-mono);
-            font-size: 0.78em;
-            letter-spacing: 1px;
-            color: var(--cyan);
-        }
-        .cost-accordion-hint {
-            font-size: 0.7em;
-            color: var(--text-dim);
-            font-style: italic;
-        }
-        .cost-accordion-arrow {
-            font-size: 1em;
-            color: var(--cyan);
-            transition: transform 0.3s ease;
-            flex-shrink: 0;
-            margin-left: 12px;
-        }
-        .cost-accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.45s ease;
-        }
-        .cost-accordion-inner {
-            padding: 20px 0 5px;
-        }
-
-        /* Tables inside accordion (kept from original) */
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 25px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-        .comparison-table th {
-            font-family: var(--font-display);
-            font-size: 0.65em;
-            letter-spacing: 2px;
-            padding: 12px 15px;
-            text-align: left;
-            background: rgba(0,255,65,0.05);
-            color: var(--cyan);
-            border-bottom: 1px solid var(--border);
-        }
-        .comparison-table td {
-            padding: 10px 15px;
-            font-size: 0.85em;
-            color: var(--text-dim);
-            border-bottom: 1px solid rgba(42,42,46,0.5);
-        }
-        .comparison-table tr:last-child td { border-bottom: none; }
-        .comparison-table .cost-traditional { color: var(--red); font-weight: 600; }
-        .comparison-table .cost-castnet { color: var(--neon); font-weight: 700; }
-        .comparison-table .cost-savings {
-            color: var(--neon);
-            font-weight: 900;
-            font-size: 1.1em;
-            text-shadow: 0 0 10px var(--neon-glow);
-        }
-        .comparison-table .row-highlight {
-            background: rgba(0,255,65,0.04);
-        }
-        .comparison-table .row-castnet {
-            background: rgba(0,255,65,0.06);
-            border-top: 2px solid var(--neon);
-        }
-        .comparison-table .row-savings {
-            background: rgba(0,255,65,0.08);
-        }
-        .savings-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 25px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-        .savings-table th {
-            font-family: var(--font-display);
-            font-size: 0.6em;
-            letter-spacing: 2px;
-            padding: 12px 12px;
-            text-align: center;
-            background: rgba(0,255,65,0.05);
-            color: var(--cyan);
-            border-bottom: 1px solid var(--border);
-        }
-        .savings-table td {
-            padding: 12px 12px;
-            font-size: 0.85em;
-            color: var(--text-dim);
-            border-bottom: 1px solid rgba(42,42,46,0.5);
-            text-align: center;
-        }
-        .savings-table tr:last-child td { border-bottom: none; }
-        .savings-table .save-amount {
-            color: var(--neon);
-            font-weight: 900;
-            font-size: 1.3em;
-            text-shadow: 0 0 12px var(--neon-glow);
-        }
-        .savings-table .trad-cost { color: var(--red); font-weight: 600; }
-        .savings-table .cast-cost { color: var(--neon); font-weight: 600; }
-        .time-saved-section {
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-        .time-saved-section h4 {
-            font-family: var(--font-display);
-            font-size: 0.75em;
-            letter-spacing: 2px;
-            color: var(--orange);
-            margin-bottom: 12px;
-        }
-        .time-saved-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 12px;
-        }
-        .time-saved-list li {
-            padding: 4px 0;
-            font-size: 0.85em;
-            color: var(--text-dim);
-        }
-        .time-saved-list li::before {
-            content: '\23F1 ';
-            margin-right: 6px;
-        }
-        .time-saved-list li.total-line {
-            color: var(--red);
-            font-weight: 700;
-            border-top: 1px solid var(--border);
-            padding-top: 8px;
-            margin-top: 4px;
-        }
-        .time-saved-list li.total-line::before { content: '\26A0 '; }
-        .time-saved-castnet {
-            font-size: 1em;
-            color: var(--neon);
-            font-weight: 700;
-            margin: 10px 0;
-        }
-        .time-saved-annual {
-            font-size: 0.85em;
-            color: var(--text-dim);
-        }
-        .time-saved-annual strong {
-            color: var(--neon);
-            font-size: 1.2em;
-            text-shadow: 0 0 8px var(--neon-glow);
-        }
-        .kicker-box {
-            background: rgba(0,229,255,0.04);
-            border: 2px solid var(--cyan);
-            border-radius: var(--radius);
-            padding: 22px;
-            margin-bottom: 25px;
-            position: relative;
-            box-shadow: 0 0 25px rgba(0,229,255,0.1), 0 0 50px rgba(0,229,255,0.05);
-        }
-        .kicker-box h4 {
-            font-family: var(--font-display);
-            font-size: 0.85em;
-            letter-spacing: 3px;
-            color: var(--cyan);
-            margin-bottom: 14px;
-            text-shadow: 0 0 10px var(--cyan-glow);
-        }
-        .kicker-box ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .kicker-box ul li {
-            padding: 5px 0;
-            font-size: 0.88em;
-            color: var(--text-dim);
-            line-height: 1.5;
-        }
-        .kicker-box ul li::before {
-            content: '\25B8 ';
-            color: var(--cyan);
-            margin-right: 6px;
-        }
-        .kicker-box ul li strong {
-            color: var(--text-bright);
-        }
-        .kicker-box .kicker-bottom {
-            margin-top: 14px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(0,229,255,0.2);
-            font-size: 0.82em;
-            color: var(--cyan);
-            font-weight: 600;
-        }
-
-        .section-divider {
-            text-align: center;
-            margin: 30px 0 20px;
-            position: relative;
-        }
-        .section-divider::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
-        }
-        .section-divider span {
-            position: relative;
-            background: var(--bg-card);
-            padding: 0 15px;
-            font-family: var(--font-display);
-            font-size: 0.7em;
-            letter-spacing: 3px;
-            color: var(--text-dim);
-        }
-        /* ===== ANGLER NAME TICKER ===== */
-        .ticker-section {
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%);
-            border-top: 1px solid rgba(0,255,65,0.15);
-            border-bottom: 1px solid rgba(0,255,65,0.15);
-            padding: 20px 0 18px;
-            margin-bottom: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-        .ticker-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--neon-glow), transparent);
-        }
-        .ticker-section::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--neon-glow), transparent);
-        }
-        .ticker-label {
-            font-family: var(--font-mono);
-            font-size: 0.6em;
-            letter-spacing: 4px;
-            color: var(--text-dim);
-            text-align: center;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-        .ticker-track {
-            position: relative;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .ticker-name {
-            position: absolute;
-            font-family: var(--font-display);
-            font-size: clamp(1.2em, 4vw, 1.8em);
-            font-weight: 900;
-            letter-spacing: 6px;
-            color: var(--neon);
-            text-shadow: 0 0 10px var(--neon-glow), 0 0 25px var(--neon-glow), 0 0 50px rgba(0,255,65,0.12);
-            white-space: nowrap;
-            opacity: 0;
-            transform: translateX(60px);
-            animation: tickerSlide 1.8s ease-in-out infinite;
-        }
-        @keyframes tickerSlide {
-            0% { opacity: 0; transform: translateX(60px); }
-            12% { opacity: 1; transform: translateX(0); }
-            82% { opacity: 1; transform: translateX(0); }
-            100% { opacity: 0; transform: translateX(-60px); }
-        }
-        .ticker-badges {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-        .ticker-badge {
-            font-family: var(--font-mono);
-            font-size: 0.55em;
-            letter-spacing: 2px;
-            color: var(--cyan);
-            padding: 3px 12px;
-            border: 1px solid rgba(0,229,255,0.25);
-            border-radius: 4px;
-            background: rgba(0,229,255,0.05);
-            opacity: 0;
-            animation: badgePulse 7.2s ease-in-out infinite;
-        }
-        .ticker-badge:nth-child(1) { animation-delay: 0s; }
-        .ticker-badge:nth-child(2) { animation-delay: 1.8s; }
-        .ticker-badge:nth-child(3) { animation-delay: 3.6s; }
-        .ticker-badge:nth-child(4) { animation-delay: 5.4s; }
-        @keyframes badgePulse {
-            0% { opacity: 0.2; }
-            6% { opacity: 1; box-shadow: 0 0 8px var(--cyan-glow); border-color: var(--cyan); }
-            19% { opacity: 1; box-shadow: 0 0 8px var(--cyan-glow); border-color: var(--cyan); }
-            25% { opacity: 0.2; box-shadow: none; border-color: rgba(0,229,255,0.25); }
-            100% { opacity: 0.2; }
-        }
-
-        /* ===== REAL STATS BAR ===== */
-        .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            margin: 20px 0 10px;
-            padding: 20px 10px;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-        }
-        .stat-item {
-            text-align: center;
-            padding: 8px 4px;
-        }
-        .stat-number {
-            font-family: var(--font-display);
-            font-size: 1.6em;
-            font-weight: 900;
-            color: var(--neon);
-            text-shadow: 0 0 10px var(--neon-glow);
-            line-height: 1;
-        }
-        .stat-label {
-            font-family: var(--font-mono);
-            font-size: 0.6em;
-            letter-spacing: 1.5px;
-            color: var(--text-dim);
-            margin-top: 6px;
-        }
-        .stats-proof-line {
-            text-align: center;
-            font-size: 0.75em;
-            color: var(--text-dim);
-            line-height: 1.6;
-            margin: 10px 15px 0;
-            font-style: italic;
-            opacity: 0.7;
-        }
-
     </style>
 </head>
 
@@ -1566,41 +919,6 @@
             </p>
         </div>
 
-        <!-- ===== ANGLER NAME TICKER ===== -->
-        <div class="ticker-section">
-            <div class="ticker-label">// THE ROSTER</div>
-            <div class="ticker-track" id="tickerTrack">
-                <div class="ticker-name" id="tickerName">SCOTT MARTIN</div>
-            </div>
-            <div class="ticker-badges">
-                <span class="ticker-badge">BASSMASTER ELITE</span>
-                <span class="ticker-badge">BASS PRO TOUR</span>
-                <span class="ticker-badge">NPFL</span>
-                <span class="ticker-badge">MLF</span>
-            </div>
-        </div>
-
-        <!-- ===== REAL STATS ===== -->
-        <div class="stats-bar">
-            <div class="stat-item">
-                <div class="stat-number">8</div>
-                <div class="stat-label">PRO ANGLERS</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">50+</div>
-                <div class="stat-label">TOURNAMENTS STREAMED</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">6</div>
-                <div class="stat-label">PLATFORMS</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">$20K+</div>
-                <div class="stat-label">AD REVENUE PER STREAM</div>
-            </div>
-        </div>
-        <p class="stats-proof-line">Produced streams for Bassmaster Elite Series and Bass Pro Tour anglers with individual streams exceeding 100,000 views and $20,000 in YouTube ad revenue alone.</p>
-
         <!-- ===== VALUE PROPS ===== -->
         <div class="value-grid">
             <div class="value-card">
@@ -1625,131 +943,44 @@
             </div>
         </div>
 
-        <!-- ===== FISHING CHAOS INTEGRATION ===== -->
+        <!-- ===== TOURNAMENT INTEGRATION ===== -->
         <div class="fc-integration">
             <div class="fc-header">
                 <div class="fc-logo-area">
                     <span class="fc-brand"><span class="fc-fishing">CASTNET</span></span>
-                    <span class="fc-x">&times;</span>
-                    <span class="fc-brand"><span class="fc-chaos">FISHING CHAOS</span></span>
+                    <span class="fc-x">//</span>
+                    <span class="fc-brand"><span class="fc-chaos">TOURNAMENT OPS</span></span>
                 </div>
             </div>
-            <div class="fc-tagline">Tournament management meets broadcast-grade production &mdash; the first fully integrated tournament livestream platform in competitive fishing.</div>
+            <div class="fc-tagline">Broadcast-grade production built for competitive fishing &mdash; from club events to the pro circuit.</div>
             <div class="fc-features">
                 <div class="fc-feat">
                     <div class="fc-feat-icon">&#127942;</div>
                     <div class="fc-feat-text">
-                        <div class="fc-feat-name">LIVE LEADERBOARDS</div>
-                        <div class="fc-feat-desc">Real-time standings from Fishing Chaos scoring piped directly into your stream overlay</div>
-                    </div>
-                </div>
-                <div class="fc-feat">
-                    <div class="fc-feat-icon">&#128202;</div>
-                    <div class="fc-feat-text">
-                        <div class="fc-feat-name">TOURNAMENT SYNC</div>
-                        <div class="fc-feat-desc">Auto-pull event schedules, weigh-in times, and bracket data &mdash; zero manual entry</div>
+                        <div class="fc-feat-name">LIVE FISH SCORING</div>
+                        <div class="fc-feat-desc">Log catches in real time from your phone &mdash; weights, species, timestamps &mdash; all on-stream</div>
                     </div>
                 </div>
                 <div class="fc-feat">
                     <div class="fc-feat-icon">&#128250;</div>
                     <div class="fc-feat-text">
                         <div class="fc-feat-name">MULTI-ANGLER HUB</div>
-                        <div class="fc-feat-desc">Watch every competing angler's stream in one place &mdash; the tournament director's dream</div>
+                        <div class="fc-feat-desc">Every angler's stream monitored from one dashboard &mdash; switch, clip, and manage all feeds</div>
                     </div>
                 </div>
                 <div class="fc-feat">
                     <div class="fc-feat-icon">&#128232;</div>
                     <div class="fc-feat-text">
                         <div class="fc-feat-name">CATCH VERIFICATION</div>
-                        <div class="fc-feat-desc">Video-backed catch logs with timestamps that sync to the official scoring system</div>
+                        <div class="fc-feat-desc">Video-backed catch logs with timestamps for accountability and replay</div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- ===== STREAMNET RESTREAMING NETWORK ===== -->
-        <div class="streamnet-banner">
-            <div class="streamnet-header">
-                <div class="streamnet-title">STREAMNET
-                    <span>THE COLLECTIVE RESTREAMING NETWORK</span>
-                </div>
-            </div>
-            <div class="streamnet-tagline">
-                When you join CastNET, your stream doesn't just go to one platform &mdash; <strong>it goes everywhere</strong>. StreamNET is the enterprise-grade restreaming backbone that pushes your content to every major platform simultaneously. One setup, every audience.
-            </div>
-            <div class="streamnet-platforms">
-                <span class="streamnet-platform-tag">YOUTUBE</span>
-                <span class="streamnet-platform-tag">FACEBOOK</span>
-                <span class="streamnet-platform-tag">TWITCH</span>
-                <span class="streamnet-platform-tag">KICK</span>
-                <span class="streamnet-platform-tag">X (TWITTER)</span>
-                <span class="streamnet-platform-tag">FISHING CHAOS</span>
-            </div>
-            <div class="streamnet-features">
-                <div class="streamnet-feat">
-                    <div class="streamnet-feat-icon">&#128752;</div>
-                    <div class="streamnet-feat-text">
-                        <div class="streamnet-feat-name">ONE STREAM, EVERYWHERE</div>
-                        <div class="streamnet-feat-desc">You hit "go live" once. We distribute to every platform simultaneously &mdash; no extra apps, no extra logins, no headaches.</div>
+                <div class="fc-feat">
+                    <div class="fc-feat-icon">&#128225;</div>
+                    <div class="fc-feat-text">
+                        <div class="fc-feat-name">REMOTE OPERATIONS</div>
+                        <div class="fc-feat-desc">Full control from anywhere &mdash; switch cameras, fire sponsor ads, restart streams from your phone</div>
                     </div>
-                </div>
-                <div class="streamnet-feat">
-                    <div class="streamnet-feat-icon">&#128101;</div>
-                    <div class="streamnet-feat-text">
-                        <div class="streamnet-feat-name">COLLECTIVE POWER</div>
-                        <div class="streamnet-feat-desc">The more anglers in the network, the bigger everyone's audience. Cross-promotion, raid trains, shared viewers &mdash; rising tide lifts all boats.</div>
-                    </div>
-                </div>
-                <div class="streamnet-feat">
-                    <div class="streamnet-feat-icon">&#127758;</div>
-                    <div class="streamnet-feat-text">
-                        <div class="streamnet-feat-name">NETWORK EFFECT</div>
-                        <div class="streamnet-feat-desc">You're not just hiring a service &mdash; you're joining a broadcast network. Your audience discovers other anglers. Their audience discovers you.</div>
-                    </div>
-                </div>
-                <div class="streamnet-feat">
-                    <div class="streamnet-feat-icon">&#128640;</div>
-                    <div class="streamnet-feat-text">
-                        <div class="streamnet-feat-name">ENTERPRISE INFRASTRUCTURE</div>
-                        <div class="streamnet-feat-desc">Multi-platform restreaming at this scale costs thousands to build yourself. StreamNET gives you that power included with your CastNET membership.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== YOUR TOOLS ===== -->
-        <div class="tools-section">
-            <div class="tools-section-header">YOUR TOOLS</div>
-            <div class="tools-grid">
-                <div class="tool-card">
-                    <div class="tool-icon">&#128241;</div>
-                    <div class="tool-name">BRO CONTROL</div>
-                    <div class="tool-desc">Your phone becomes a streaming command center. Switch cameras, log fish catches, fire sponsor ads, and monitor your stream &mdash; all from one app on your phone.</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">&#127942;</div>
-                    <div class="tool-name">TOURNAMENT OVERLAYS</div>
-                    <div class="tool-desc">Custom branded overlays with your sponsors, live fish scoring, leaderboard integration, ticker text, and weather display. Looks like ESPN for fishing.</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">&#128202;</div>
-                    <div class="tool-name">CONTENT DASHBOARD</div>
-                    <div class="tool-desc">Compose social media posts, schedule content, track sponsor deliverables, and manage your content calendar. One dashboard for all your platforms.</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">&#128205;</div>
-                    <div class="tool-name">NAVCAST WAYPOINT VAULT</div>
-                    <div class="tool-desc">Secure cloud storage for your fishing waypoints. Import from Garmin, Lowrance, or Humminbird. Never lose a waypoint again. Export to any format.</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">&#129302;</div>
-                    <div class="tool-name">AI CONTENT ENGINE</div>
-                    <div class="tool-desc">AI-generated social posts, thumbnails, and highlight reels from your stream footage. We turn your raw fishing content into polished social media automatically.</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">&#128752;</div>
-                    <div class="tool-name">STREAMNET RESTREAMING</div>
-                    <div class="tool-desc">Simultaneous broadcast to YouTube, Facebook, Twitch, Kick, X, and partner networks. One stream, everywhere &mdash; no extra setup required.</div>
                 </div>
             </div>
         </div>
@@ -1761,16 +992,10 @@
                 <div class="showcase-grid">
                     <div class="showcase-item"><div class="feat-icon">&#128247;</div><div class="feat-name">CAMERA SWITCHING</div></div>
                     <div class="showcase-item"><div class="feat-icon">&#128200;</div><div class="feat-name">FISH SCORING</div></div>
-                    <div class="showcase-item"><div class="feat-icon">&#9200;</div><div class="feat-name">TIME MARKERS</div></div>
-                    <div class="showcase-item"><div class="feat-icon">&#128250;</div><div class="feat-name">SPONSOR ADS</div></div>
-                    <div class="showcase-item"><div class="feat-icon">&#128260;</div><div class="feat-name">AUTO-RESTART</div></div>
-                    <div class="showcase-item"><div class="feat-icon">&#128274;</div><div class="feat-name">PIN ACCESS</div></div>
-                    <div class="showcase-item"><div class="feat-icon">&#128225;</div><div class="feat-name">MOBILE PANEL</div></div>
-                    <div class="showcase-item"><div class="feat-icon">&#128232;</div><div class="feat-name">INSTANT ALERTS</div></div>
+                    <div class="showcase-item"><div class="feat-icon">&#128250;</div><div class="feat-name">SPONSOR OVERLAYS</div></div>
+                    <div class="showcase-item"><div class="feat-icon">&#128260;</div><div class="feat-name">AUTO-RECOVERY</div></div>
+                    <div class="showcase-item"><div class="feat-icon">&#128225;</div><div class="feat-name">PHONE CONTROL</div></div>
                     <div class="showcase-item"><div class="feat-icon">&#127916;</div><div class="feat-name">CLIP CAPTURE</div></div>
-                    <div class="showcase-item"><div class="feat-icon">&#128202;</div><div class="feat-name">STREAM STATS</div></div>
-                    <div class="showcase-item"><div class="feat-icon">&#129302;</div><div class="feat-name">AI WATCHDOG</div></div>
-                    <div class="showcase-item"><div class="feat-icon">&#128272;</div><div class="feat-name">SECURE ACCESS</div></div>
                 </div>
             </div>
         </div>
@@ -1788,226 +1013,66 @@
             <div class="section">
                 <div class="section-header"><span class="step-num">1</span> SELECT YOUR SERVICE TIER</div>
                 <div class="section-body">
-
-                    <!-- ===== COST: ONE-LINER + ACCORDION ===== -->
-                    <div class="cost-oneliner">
-                        <div class="cost-oneliner-text">
-                            <span class="trad">Traditional: $3,000/day</span>
-                            <span class="arrow">&rarr;</span>
-                            <span class="cast">CastNET: $200/day</span>
-                        </div>
-                    </div>
-
-                    <div class="cost-accordion-bar" onclick="toggleCostBreakdown()">
-                        <div class="cost-accordion-label">
-                            <div class="cost-accordion-title">SEE THE REAL NUMBERS &mdash; Traditional production vs CastNET</div>
-                            <div class="cost-accordion-hint">Hint: Traditional production costs $2,200&ndash;$3,700 per stream day. We charge $200.</div>
-                        </div>
-                        <div class="cost-accordion-arrow" id="cost-breakdown-arrow">&#9654;</div>
-                    </div>
-
-                    <div class="cost-accordion-content" id="cost-breakdown-content" style="max-height:0px;">
-                        <div class="cost-accordion-inner">
-
-                            <!-- Part 1: Traditional vs CastNET Cost Comparison -->
-                            <table class="comparison-table">
-                                <thead>
-                                    <tr>
-                                        <th>TRADITIONAL PRODUCTION</th>
-                                        <th>DAILY COST</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Camera Operator</td>
-                                        <td class="cost-traditional">$800 &ndash; $1,200</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Video Editor (post-production)</td>
-                                        <td class="cost-traditional">$500 &ndash; $1,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Social Media Manager (prorated)</td>
-                                        <td class="cost-traditional">$100 &ndash; $150</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Thumbnail Designer</td>
-                                        <td class="cost-traditional">$30 &ndash; $50</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Streaming Tech / Encoder</td>
-                                        <td class="cost-traditional">$500 &ndash; $800</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Equipment Rental</td>
-                                        <td class="cost-traditional">$300 &ndash; $500</td>
-                                    </tr>
-                                    <tr class="row-highlight" style="border-top:2px solid var(--red);">
-                                        <td style="font-weight:700; color:var(--text-bright);">TOTAL (Traditional)</td>
-                                        <td class="cost-traditional" style="font-size:1.1em; font-weight:900;">$2,230 &ndash; $3,700/day</td>
-                                    </tr>
-                                    <tr class="row-castnet">
-                                        <td style="font-weight:700; color:var(--neon);">CastNET Managed</td>
-                                        <td class="cost-castnet" style="font-size:1.3em;">$200/day <span style="font-size:0.6em; color:var(--red); font-family:var(--font-display); letter-spacing:1px;">(LAUNCH)</span></td>
-                                    </tr>
-                                    <tr class="row-savings">
-                                        <td style="font-weight:900; color:var(--neon); font-size:1em;">YOU SAVE</td>
-                                        <td class="cost-savings" style="font-size:1.4em;">$2,030 &ndash; $3,500 <span style="display:block; font-size:0.5em; color:var(--text-dim); font-weight:400;">EVERY STREAM DAY</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <!-- Part 2: Savings Over Time -->
-                            <table class="savings-table">
-                                <thead>
-                                    <tr>
-                                        <th>TIMEFRAME</th>
-                                        <th>TRADITIONAL COST</th>
-                                        <th>CASTNET COST</th>
-                                        <th>YOU SAVE</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="color:var(--text-bright); font-weight:500;">6 Months</td>
-                                        <td class="trad-cost">$107,000+</td>
-                                        <td class="cast-cost">$9,600</td>
-                                        <td class="save-amount">$97,400+</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="color:var(--text-bright); font-weight:500;">1 Year</td>
-                                        <td class="trad-cost">$214,000+</td>
-                                        <td class="cast-cost">$19,200</td>
-                                        <td class="save-amount">$194,800+</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="color:var(--text-bright); font-weight:500;">2 Years</td>
-                                        <td class="trad-cost">$428,000+</td>
-                                        <td class="cast-cost">$38,400</td>
-                                        <td class="save-amount">$389,600+</td>
-                                    </tr>
-                                    <tr style="background:rgba(0,255,65,0.05);">
-                                        <td style="color:var(--neon); font-weight:700;">4 Years</td>
-                                        <td class="trad-cost" style="font-size:1em;">$856,000+</td>
-                                        <td class="cast-cost" style="font-size:1em;">$76,800</td>
-                                        <td class="save-amount" style="font-size:1.5em;">$779,200+</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div style="text-align:center; font-size:0.7em; color:var(--text-dim); margin-top:-18px; margin-bottom:20px;">Based on 2 tournaments/month (~8 stream days) at CastNET Managed rate of $200/day</div>
-
-                            <!-- Part 3: Time Saved -->
-                            <div class="time-saved-section">
-                                <h4>BUT FORGET THE MONEY FOR A SECOND. THINK ABOUT TIME.</h4>
-                                <p style="font-size:0.85em; color:var(--text-dim); margin-bottom:12px;">Traditional production per stream day:</p>
-                                <ul class="time-saved-list">
-                                    <li>Camera guy dumps cards: 2 hours</li>
-                                    <li>Organize footage: 1 hour</li>
-                                    <li>Edit highlights: 6&ndash;8 hours</li>
-                                    <li>Create thumbnails: 1 hour</li>
-                                    <li>Write captions + post: 1&ndash;2 hours</li>
-                                    <li class="total-line">TOTAL: 11&ndash;14 HOURS of someone's time PER STREAM DAY</li>
-                                </ul>
-                                <div class="time-saved-castnet">CastNET: 0 hours. You fish. We handle everything.</div>
-                                <div class="time-saved-annual">Over a year (48 stream days): <strong>528&ndash;672 hours saved = 22&ndash;28 FULL DAYS</strong> of someone's life back.</div>
-                            </div>
-
-                            <!-- Part 4: YouTube Ad Revenue Reality Check -->
-                            <div class="kicker-box">
-                                <h4>HERE'S THE KICKER</h4>
-                                <ul>
-                                    <li>An 8-hour fishing stream generates <strong>$150&ndash;$300 in YouTube ad revenue alone</strong> (based on fishing content CPM of $5&ndash;$15)</li>
-                                    <li>At CastNET's managed rate of $200/day... <strong>your stream essentially PAYS FOR ITSELF</strong></li>
-                                    <li>Everything else &mdash; the clips, the social posts, the thumbnails, the growth &mdash; is <strong>pure bonus</strong></li>
-                                    <li>Over a year, your streams could generate <strong>$7,200&ndash;$14,400</strong> in ad revenue</li>
-                                    <li>Your CastNET investment: <strong>$9,600/year</strong> &rarr; Net cost as low as <strong>$0 after ad revenue</strong></li>
-                                </ul>
-                                <div class="kicker-bottom">The math doesn't lie. This pays for itself. Everything else is gravy.</div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="section-divider"><span>CHOOSE YOUR TIER</span></div>
-
-                    <!-- ===== TIER GRID ===== -->
                     <div class="tier-grid">
-                        <!-- BASIC (Self-Service) -->
-                        <div class="tier-card basic-dim" data-tier="basic" onclick="selectTier(this)">
-                            <div class="tier-name">BASIC</div>
+                        <div class="tier-card" data-tier="self-service" onclick="selectTier(this)">
+                            <div class="tier-name">SELF-SERVICE</div>
                             <div class="tier-price">$100<span> / stream day</span></div>
                             <ul class="tier-features">
-                                <li>Camera switching (1 additional operator)</li>
-                                <li>Basic auto-generated thumbnail</li>
-                                <li>Standard self-healing (economy mode)</li>
-                                <li>Email support only (48hr response)</li>
-                                <li>Single platform stream only</li>
-                                <li style="color:#664444;">NO highlight clips</li>
-                                <li style="color:#664444;">NO social media content</li>
-                                <li style="color:#664444;">NO sponsor overlay management</li>
+                                <li>Phone control panel</li>
+                                <li>Camera switching</li>
+                                <li>Fish scoring + markers</li>
+                                <li>Auto-crash recovery</li>
+                                <li>Sponsor overlay system</li>
+                                <li>Remote stream restart</li>
+                                <li>Email + Telegram support</li>
                             </ul>
-                            <div class="tier-warning">&#9888; Economy infrastructure. Streams may experience extended downtime if cellular signal is unstable. Self-healing operates in low-priority queue.</div>
                         </div>
-
-                        <!-- MANAGED (Main Offer) -->
-                        <div class="tier-card popular managed-highlight" data-tier="managed" onclick="selectTier(this)">
-                            <div class="launch-badge">LAUNCH PRICE</div>
+                        <div class="tier-card popular" data-tier="managed" onclick="selectTier(this)">
                             <div class="tier-name">MANAGED</div>
-                            <div class="tier-price"><span class="tier-price-old">$250</span> $200<span> / stream day</span> <span class="tier-price-launch">LAUNCH PRICE</span></div>
+                            <div class="tier-price">$200<span> / stream day</span></div>
                             <ul class="tier-features">
-                                <li>Everything in Basic, PLUS:</li>
-                                <li>Full managed production by Brody</li>
-                                <li>Instant self-healing (priority infra)</li>
-                                <li>Custom AI-generated thumbnails</li>
-                                <li>Highlight clip creation (best moments)</li>
-                                <li>Sponsor overlay management</li>
-                                <li>StreamNET multi-platform restreaming</li>
+                                <li>Everything in Self-Service</li>
+                                <li>Live camera operator (Brody)</li>
+                                <li>Real-time ad insertion</li>
+                                <li>Highlight clip creation</li>
                                 <li>Monthly analytics report</li>
-                                <li>Priority support (text Brody directly)</li>
+                                <li>Priority support</li>
                             </ul>
                         </div>
-
-                        <!-- SEASON PASS -->
                         <div class="tier-card" data-tier="season" onclick="selectTier(this)">
                             <div class="tier-name">SEASON PASS</div>
-                            <div class="tier-price">$2,000<span> / month</span></div>
+                            <div class="tier-price">$1,500<span> / month</span></div>
                             <ul class="tier-features">
                                 <li>Everything in Managed</li>
                                 <li>Unlimited stream days</li>
-                                <li>Full content creation pipeline</li>
-                                <li>AI-generated social media posts + clips</li>
-                                <li>Content calendar + scheduling</li>
-                                <li>Sponsor coordination + tracking</li>
-                                <li>Dedicated account management</li>
-                                <li>NavCAST Waypoint Vault access</li>
+                                <li>Content creation pipeline</li>
+                                <li>Social media clips + posts</li>
+                                <li>Sponsor coordination</li>
+                                <li>Dedicated account manager</li>
                             </ul>
                         </div>
-
-                        <!-- ELITE (Full Agency) -->
                         <div class="tier-card elite" data-tier="elite" onclick="selectTier(this)">
                             <div class="tier-name">ELITE</div>
-                            <div class="tier-price">$4,500<span> / month</span></div>
+                            <div class="tier-price">CUSTOM<span> / quoted</span></div>
                             <ul class="tier-features">
                                 <li>Everything in Season Pass</li>
-                                <li>Full social media management</li>
-                                <li>AI-powered highlight reels (weekly)</li>
+                                <li>Custom hardware buildout</li>
+                                <li>Branded overlays + graphics</li>
+                                <li>AI-powered highlight reels</li>
+                                <li>Social media management</li>
                                 <li>Sponsor pitch deck creation</li>
-                                <li>Branded custom overlay design</li>
-                                <li>1-on-1 strategy calls (weekly)</li>
-                                <li>Priority equipment upgrades</li>
-                                <li>NavCAST Waypoint Vault premium</li>
-                                <li>Content repurposing (all platforms)</li>
+                                <li>Full content agency service</li>
+                                <li>1-on-1 strategy calls</li>
                             </ul>
-                            <div style="margin-top:10px; font-size:0.78em; color:var(--gold); font-style:italic; line-height:1.4;">"Your entire digital presence, handled."</div>
                         </div>
                     </div>
 
                     <div style="margin-top:15px; text-align:center;">
                         <div class="deposit-note">ALL TIERS REQUIRE A NON-REFUNDABLE DEPOSIT TO BEGIN</div>
                         <div style="margin-top:8px; color:var(--text-dim); font-size:0.82em;">
-                            Basic &amp; Managed: <strong style="color:var(--orange)">$500 deposit</strong> &nbsp;|&nbsp;
-                            Season Pass: <strong style="color:var(--orange)">$1,000 deposit</strong> &nbsp;|&nbsp;
-                            Elite: <strong style="color:var(--gold)">$2,000 deposit</strong>
+                            Self-Service &amp; Managed: <strong style="color:var(--orange)">$500 deposit</strong> &nbsp;|&nbsp;
+                            Season Pass: <strong style="color:var(--orange)">$750 deposit</strong> &nbsp;|&nbsp;
+                            Elite: <strong style="color:var(--gold)">$1,500 deposit</strong>
                         </div>
                         <div style="margin-top:4px; color:var(--text-dim); font-size:0.75em;">Deposit covers equipment configuration, software installation, testing &amp; onboarding. Applied to first invoice.</div>
                     </div>
@@ -2032,16 +1097,8 @@
                             <input type="text" id="f-name" placeholder="Logan Parks" required>
                         </div>
                         <div class="form-group">
-                            <label>Tournament Circuit</label>
-                            <select id="f-circuit">
-                                <option value="">Select...</option>
-                                <option>Bassmaster</option>
-                                <option>MLF / BPT</option>
-                                <option>NPFL</option>
-                                <option>FLW / Phoenix</option>
-                                <option>Local / Club</option>
-                                <option>Other</option>
-                            </select>
+                            <label>Tournament Circuit / League</label>
+                            <input type="text" id="f-circuit" placeholder="e.g. Bass Pro Tour, local club, etc.">
                         </div>
                     </div>
 
@@ -2349,40 +1406,6 @@
     </div>
 
     <script>
-        // ===== COST BREAKDOWN ACCORDION =====
-        function toggleCostBreakdown() {
-            var content = document.getElementById('cost-breakdown-content');
-            var arrow = document.getElementById('cost-breakdown-arrow');
-            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
-                content.style.maxHeight = '0px';
-                arrow.style.transform = 'rotate(0deg)';
-            } else {
-                content.style.maxHeight = content.scrollHeight + 'px';
-                arrow.style.transform = 'rotate(90deg)';
-            }
-        }
-
-        // ===== ANGLER NAME TICKER =====
-        (function() {
-            const names = [
-                'SCOTT MARTIN', 'KYLE PATRICK', 'LOGAN PARKS', 'BYRON VELVICK',
-                'HILARY MARTIN', 'RICKEY MORRIS', 'NICK BROWN', 'JOHN HUNTER'
-            ];
-            let idx = 0;
-            const el = document.getElementById('tickerName');
-            if (el) {
-                function cycleName() {
-                    el.style.animation = 'none';
-                    el.offsetHeight; // reflow
-                    el.textContent = names[idx];
-                    el.style.animation = 'tickerSlide 1.8s ease-in-out';
-                    idx = (idx + 1) % names.length;
-                }
-                cycleName();
-                setInterval(cycleName, 1800);
-            }
-        })();
-
         // ===== STATE =====
         let currentPage = 1;
         let selectedTier = null;
@@ -2402,10 +1425,10 @@
 
         // ===== DEPOSIT AMOUNTS =====
         const DEPOSITS = {
-            'basic': 500,
+            'self-service': 500,
             'managed': 500,
-            'season': 1000,
-            'elite': 2000
+            'season': 750,
+            'elite': 1500
         };
 
         // ===== STORY TOGGLE =====
@@ -2447,7 +1470,7 @@
             if (n === 4) {
                 const name = document.getElementById('f-name').value || '[Client Name]';
                 document.getElementById('ag-client-name').textContent = name;
-                const tierNames = { 'basic': 'Basic ($100/day)', 'managed': 'Managed ($200/day - Launch Price)', 'season': 'Season Pass ($2,000/mo)', 'elite': 'Elite ($4,500/mo)' };
+                const tierNames = { 'self-service': 'Self-Service ($100/day)', 'managed': 'Managed ($200/day)', 'season': 'Season Pass ($1,500/mo)', 'elite': 'Elite (Custom Quote)' };
                 document.getElementById('ag-tier-name').textContent = tierNames[selectedTier] || '[Tier]';
                 document.getElementById('f-date').value = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
             }
