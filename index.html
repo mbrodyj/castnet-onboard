@@ -2302,7 +2302,7 @@
                     <div class="sig-area" id="sig-area">
                         <label style="text-transform:none; color:var(--text-dim); font-family:var(--font-body)">Sign below with your finger, nose, elbow, or whatever appendage you prefer &mdash; we don't judge, just sign the thing</label>
                         <canvas class="sig-canvas" id="sig-canvas"></canvas>
-                        <div style="margin-top:8px; display:flex; gap:10px; flex-wrap:wrap">
+                        <div style="margin-top:8px; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
                             <button class="btn btn-outline btn-sm" onclick="clearSignature()">CLEAR</button>
                             <button class="btn btn-outline btn-sm" onclick="typeToSign()" style="border-color:var(--cyan); color:var(--cyan);">CAN'T DRAW? TYPE IT</button>
                         </div>
@@ -2339,6 +2339,12 @@
             <p style="color:var(--neon); margin-top:20px; font-family:var(--font-display); font-size:0.8em; letter-spacing:3px;">
                 YOU FISH. WE HANDLE EVERYTHING ELSE.
             </p>
+            <div style="margin-top:30px; padding-top:20px; border-top:1px solid var(--border);">
+                <p style="color:var(--text-dim); font-size:0.9em; margin-bottom:12px;">Next step: Reserve your unique network subnet to avoid Starlink routing conflicts.</p>
+                <a href="subnet_picker.html" style="display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border:2px solid var(--cyan); color:var(--cyan); font-family:var(--font-display); font-size:0.8em; letter-spacing:3px; border-radius:8px; text-decoration:none; transition:all 0.3s;" onmouseover="this.style.background='var(--cyan)';this.style.color='var(--bg-deep)'" onmouseout="this.style.background='transparent';this.style.color='var(--cyan)'">
+                    RESERVE YOUR SUBNET &rarr;
+                </a>
+            </div>
         </div>
     </div>
 
@@ -2546,13 +2552,16 @@
             sigCtx.moveTo((rect.width - textWidth) / 2, rect.height / 2 + fontSize * 0.4);
             sigCtx.lineTo((rect.width + textWidth) / 2, rect.height / 2 + fontSize * 0.4);
             sigCtx.stroke();
-
-            // Reset stroke style for future hand-drawing
             sigCtx.strokeStyle = '#00ff41';
             sigCtx.lineWidth = 2.5;
 
             sigHasContent = true;
             document.getElementById('sig-area').classList.add('signed');
+
+            // Also fill the legal name field if empty
+            if (!document.getElementById('f-legal-name').value.trim()) {
+                document.getElementById('f-legal-name').value = typedName;
+            }
             checkCanSubmit();
         }
 
@@ -2606,7 +2615,7 @@
             };
 
             try {
-                const resp = await fetch('https://jzljhwnyfxpyzidulqrc.supabase.co/functions/v1/onboard-submit', {
+                const resp = await fetch('/api/onboard/submit', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -2623,16 +2632,64 @@
                     btn.textContent = 'SIGN & SUBMIT APPLICATION';
                 }
             } catch (e) {
-                alert('Network error. Please try again.');
-                btn.disabled = false;
-                btn.textContent = 'SIGN & SUBMIT APPLICATION';
+                // OFFLINE MODE: save to localStorage, sync when HQ comes back
+                saveOffline(payload);
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.querySelector('.stepper').style.display = 'none';
+                document.getElementById('success-panel').classList.add('show');
+                const sp = document.getElementById('success-panel');
+                const note = document.createElement('p');
+                note.style.cssText = 'color:#ffaa00;margin-top:1em;font-size:0.9em;';
+                note.textContent = 'Saved offline. Will sync to HQ automatically when connection is available.';
+                sp.appendChild(note);
             }
+        }
+
+        // ===== OFFLINE QUEUE — survives page reloads, app updates, HQ downtime =====
+        const OFFLINE_KEY = 'castnet_onboard_queue';
+
+        function saveOffline(payload) {
+            const queue = JSON.parse(localStorage.getItem(OFFLINE_KEY) || '[]');
+            payload._queued_at = new Date().toISOString();
+            payload._synced = false;
+            queue.push(payload);
+            localStorage.setItem(OFFLINE_KEY, JSON.stringify(queue));
+            console.log('[ONBOARD] Saved offline. Queue size:', queue.length);
+        }
+
+        async function syncOfflineQueue() {
+            const queue = JSON.parse(localStorage.getItem(OFFLINE_KEY) || '[]');
+            const pending = queue.filter(q => !q._synced);
+            if (pending.length === 0) return;
+
+            for (const item of pending) {
+                try {
+                    const resp = await fetch('/api/onboard/submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(item)
+                    });
+                    if (resp.ok) {
+                        item._synced = true;
+                        item._synced_at = new Date().toISOString();
+                        console.log('[ONBOARD] Synced:', item.name);
+                    }
+                } catch (e) {
+                    // Still offline, try again later
+                    break;
+                }
+            }
+            localStorage.setItem(OFFLINE_KEY, JSON.stringify(queue));
         }
 
         // ===== INIT =====
         document.addEventListener('DOMContentLoaded', () => {
             initSignature();
             document.getElementById('nda-date').value = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            // Try to sync any offline submissions
+            syncOfflineQueue();
+            // Retry sync every 30 seconds
+            setInterval(syncOfflineQueue, 30000);
         });
     </script>
 </body>
