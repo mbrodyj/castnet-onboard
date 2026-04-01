@@ -1032,7 +1032,7 @@
                             <div class="tier-price">$200<span> / stream day</span></div>
                             <ul class="tier-features">
                                 <li>Everything in Self-Service</li>
-                                <li>Live camera operator (Brody)</li>
+                                <li>Full production monitoring by Brody</li>
                                 <li>Real-time ad insertion</li>
                                 <li>Highlight clip creation</li>
                                 <li>Monthly analytics report</li>
@@ -1045,10 +1045,10 @@
                             <ul class="tier-features">
                                 <li>Everything in Managed</li>
                                 <li>Unlimited stream days</li>
+                                <li>1-on-1 weekly coaching with Brody</li>
                                 <li>Content creation pipeline</li>
                                 <li>Social media clips + posts</li>
                                 <li>Sponsor coordination</li>
-                                <li>Dedicated account manager</li>
                             </ul>
                         </div>
                         <div class="tier-card elite" data-tier="elite" onclick="selectTier(this)">
@@ -1056,23 +1056,65 @@
                             <div class="tier-price">CUSTOM<span> / quoted</span></div>
                             <ul class="tier-features">
                                 <li>Everything in Season Pass</li>
+                                <li>Daily call with Brody</li>
                                 <li>Custom hardware buildout</li>
                                 <li>Branded overlays + graphics</li>
                                 <li>AI-powered highlight reels</li>
-                                <li>Social media management</li>
-                                <li>Sponsor pitch deck creation</li>
                                 <li>Full content agency service</li>
-                                <li>1-on-1 strategy calls</li>
+                                <li>Sponsor pitch deck creation</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div style="margin-top:15px; text-align:center;">
+                    <!-- CORPORATE / ULTIMATE — separate section, not the highlight -->
+                    <div style="margin-top:30px; border-top: 1px solid var(--border-bright); padding-top: 25px;">
+                        <div style="text-align:center; margin-bottom:15px;">
+                            <div style="font-family:var(--font-display); font-size:0.85em; letter-spacing:4px; color:var(--purple);">CORPORATE &amp; TEAM PACKAGES</div>
+                            <div style="font-size:0.8em; color:var(--text-dim); margin-top:5px;">Multi-boat networks, team coordination, and enterprise broadcasting</div>
+                        </div>
+                        <div class="tier-grid" style="grid-template-columns: 1fr 1fr;">
+                            <div class="tier-card" data-tier="corporate-team" onclick="selectTier(this)" style="border-color:var(--purple);">
+                                <div class="tier-name" style="color:var(--purple);">TEAM NETWORK</div>
+                                <div class="tier-price">CUSTOM<span> / per boat</span></div>
+                                <ul class="tier-features">
+                                    <li>Everything in Elite</li>
+                                    <li>Multi-boat synchronized network</li>
+                                    <li>Unified team dashboard</li>
+                                    <li>Identical camera configs across boats</li>
+                                    <li>Centralized stream management</li>
+                                    <li>Team-branded overlays</li>
+                                    <li>Shared scoring + leaderboards</li>
+                                    <li>Coordinator seat for team manager</li>
+                                </ul>
+                            </div>
+                            <div class="tier-card" data-tier="corporate-ultimate" onclick="selectTier(this)" style="border-color:var(--gold);">
+                                <div class="tier-name" style="color:var(--gold);">ULTIMATE</div>
+                                <div class="tier-price">INQUIRE<span> / enterprise</span></div>
+                                <ul class="tier-features">
+                                    <li>Everything in Team Network</li>
+                                    <li>Multi-brand / multi-entity coordination</li>
+                                    <li>VR + AR production integration</li>
+                                    <li>Forward-facing sonar data overlay</li>
+                                    <li>Remote fleet sonar + fish tracking</li>
+                                    <li>Cross-boat data sync + analytics</li>
+                                    <li>Wireless mobile data center per boat</li>
+                                    <li>Dedicated engineering + Brody on-site</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="text-align:center; margin-top:10px; font-size:0.75em; color:var(--text-dim);">
+                            Built for college fishing programs, professional teams, and brands like Red Bull entering competitive fishing.<br>
+                            Contact directly for custom scoping and multi-season contracts.
+                        </div>
+                    </div>
+
+                    <div style="margin-top:20px; text-align:center;">
                         <div class="deposit-note">ALL TIERS REQUIRE A NON-REFUNDABLE DEPOSIT TO BEGIN</div>
                         <div style="margin-top:8px; color:var(--text-dim); font-size:0.82em;">
                             Self-Service &amp; Managed: <strong style="color:var(--orange)">$500 deposit</strong> &nbsp;|&nbsp;
                             Season Pass: <strong style="color:var(--orange)">$750 deposit</strong> &nbsp;|&nbsp;
-                            Elite: <strong style="color:var(--gold)">$1,500 deposit</strong>
+                            Elite: <strong style="color:var(--gold)">$1,500 deposit</strong> &nbsp;|&nbsp;
+                            Corporate: <strong style="color:var(--purple)">Custom</strong>
                         </div>
                         <div style="margin-top:4px; color:var(--text-dim); font-size:0.75em;">Deposit covers equipment configuration, software installation, testing &amp; onboarding. Applied to first invoice.</div>
                     </div>
@@ -1428,7 +1470,9 @@
             'self-service': 500,
             'managed': 500,
             'season': 750,
-            'elite': 1500
+            'elite': 1500,
+            'corporate-team': 0,
+            'corporate-ultimate': 0
         };
 
         // ===== STORY TOGGLE =====
